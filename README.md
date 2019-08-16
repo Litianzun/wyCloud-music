@@ -5,7 +5,7 @@ webpack+react+antd
 
 #步骤
 
-1.git clone后进入项目
+1.git clone后进入项目<br />
 2.npm i
 3.调试运行npm run dev
 4.打包运行npm run build，会弹出bundle分析页
