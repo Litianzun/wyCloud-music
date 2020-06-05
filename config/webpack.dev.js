@@ -3,7 +3,7 @@ const merge = require("webpack-merge");
 const path = require("path");
 
 module.exports = merge(common, {
-  devtool: "inline-source-map",
+  devtool: 'cheap-module-eval-source-map',
   mode: "development",
   devServer: {
     contentBase: "../dist",

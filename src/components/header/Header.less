@@ -1,12 +1,12 @@
 .headerWrapper {
   width: 100%;
-  position: fixed;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: 50px;
   background-color: #3d80008a;
   box-shadow: 0 2px 1px 1px #eee;
+  .headerLeft{
+    float: left;
+  }
   img:first-child {
     width: 45px;
     height: 45px;
@@ -16,9 +16,22 @@
     margin: 0 20px;
     cursor: pointer;
   }
+  .headerTitle{
+    font-size: 28px;
+    color: #c50e4a
+  }
   .menuBox{
-    flex: 1;
+    // float: left;
     margin-left: 30px;
     background-color: rgba(61, 128, 0, 0);
+    display: inline-block;
+  }
+  .headerRight{
+    float: right;
+    width: 300px ;
+    height: 33px;
+    position: relative;
+    top: 50%;
+    margin-top: -16.5px;
   }
 }

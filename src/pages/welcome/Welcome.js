@@ -8,7 +8,7 @@ const { Panel } = Collapse;
 class Welcome extends Component {
   render() {
     return (
-      <div className="homeWrapper">
+      <div className="welcomeWrapper">
         <h1>webpack4x + react</h1>
         <Typography className="content">
           <Title level={2}>本Demo使用技术栈:</Title>
