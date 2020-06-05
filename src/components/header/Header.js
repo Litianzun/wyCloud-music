@@ -2,6 +2,7 @@ import * as React from "react";
 import { Menu, Icon, Input } from "antd";
 import { withRouter } from "react-router-dom";
 import "./Header.less";
+import list from "../../router/requestList";
 
 const { Search } = Input;
 const Header = withRouter(
@@ -11,6 +12,10 @@ const Header = withRouter(
       this.state = {
         current: "home",
       };
+      this.handleSearch = this.handleSearch.bind(this);
+    }
+    async handleSearch(v) {
+      this.props.history.push({ pathname: `/searchlist?s=${v}` });
     }
     render() {
       let path = this.props.location.pathname;
@@ -47,9 +52,9 @@ const Header = withRouter(
               联系我们
             </Menu.Item>
           </Menu>
-          <div className='headerRight'>
-          <Search placeholder="音乐/视频/电台/用户" style={{ width: "200px" }} onSearch={(v) => console.log(v)} />
-          <em style={{marginLeft: '10px'}}>登录</em>
+          <div className="headerRight">
+            <Search placeholder="音乐/视频/电台/用户" style={{ width: "200px" }} onSearch={this.handleSearch} />
+            <em style={{ marginLeft: "10px" }}>登录</em>
           </div>
         </nav>
       );

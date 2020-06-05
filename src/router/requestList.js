@@ -41,6 +41,14 @@ const list = {
    * 搜索
    */
   search: (urlPar) => request("get", "/search", { params: urlPar }),
+  /**
+   * 获取mv的url
+   */
+  getMvUrl: (urlPar) => request("get", "/mv/url", { params: urlPar }),
+  /**
+   * 获取mv信息
+   */
+  getMv: (urlPar) => request("get", "/mv/detail", { params: urlPar }),
 };
 
 export default list;

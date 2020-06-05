@@ -5,6 +5,8 @@ import Welcome from "../pages/welcome/Welcome";
 import Home from "../pages/home/Home";
 import ListPage from "../pages/list/List";
 import PlayMedia from "../components/playMedia/PlayMedia";
+import SearchList from "../pages/searchlist/SearchList";
+import Mv from "../pages/mv/Mv";
 
 export const reducerCtx = createContext({ playSwitch: false });
 const initialState = {
@@ -32,6 +34,8 @@ const Router = () => {
           <Route path="/" component={Welcome} exact />
           <Route path="/home" component={Home} />
           <Route path="/list" component={ListPage} />
+          <Route path='/searchlist' component={SearchList} />
+          <Route path='/mv/:id' component={Mv} />
         </Switch>
       </HashRouter>
       {store.playSwitch && <PlayMedia {...store.song} />}

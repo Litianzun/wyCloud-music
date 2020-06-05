@@ -52,7 +52,7 @@ const ToplistItem = (props) => {
       renderItem={(item, index) => {
         return (
           <List.Item className="toplist-item">
-            <a style={{ color: "#333" }}>
+            <a>
               {index + 1}&emsp;{item.name}
             </a>
             <div onMouseLeave={() => mouseOut(index)} onMouseEnter={() => mouseOver(index)}>

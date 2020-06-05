@@ -8,13 +8,11 @@ const PlayMedia = (props) => {
   let timer = null;
   function toHide() {
     //鼠标移开三秒之后，向下收起
-    console.log("hide");
     timer = setTimeout(() => {
       setflag(true);
     }, 3000);
   }
   function toShow() {
-    console.log("show");
     setflag(false);
     clearTimeout(timer);
   }
