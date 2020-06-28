@@ -8,7 +8,7 @@ function GETRequest(url, params) {
     headers: {},
     url,
     baseURL: baseUrl,
-    params,
+    params: params,
     responseType: "json",
     maxContentLength: 2000,
     validateStatus: function (status) {
@@ -35,17 +35,23 @@ function POSTRequest(url, data) {
 
 async function request(type = "get", url, obj = {}) {
   let promise = null;
-  promise = type === "get" ? GETRequest(url, obj.params) : POSTRequest(url, obj.data);
-  const result = await promise;
-  if (result.status === 200) {
-    console.log(baseUrl + url, type === "get" ? obj.params : obj.data);
-    return result.data;
-  } else if (300 <= result.status < 400) {
-    message.warn(result.statusText);
-  } else if (result.status >= 400) {
-    message.error(result.statusText);
+  promise =
+    type === "get" ? GETRequest(url, obj.params) : POSTRequest(url, obj.data);
+  try {
+    const result = await promise;
+    if (result.status === 200) {
+      console.log(baseUrl + url, type === "get" ? obj.params : obj.data);
+      return result.data;
+    } else if (300 <= result.status < 400) {
+      message.warn(result.statusText);
+    } else if (result.status >= 400) {
+      message.error(result.statusText);
+    }
+    return promise;
+  } catch (error) {
+    console.log(error);
+    message.error('接口調用失敗'+error);
   }
-  return promise;
 }
 
 export default request;

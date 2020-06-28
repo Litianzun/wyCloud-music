@@ -1,11 +1,18 @@
 .headerWrapper {
   width: 100%;
   top: 0;
-  height: 50px;
-  background-color: #3d80008a;
+  height: 70px;
+  background-color: #242424;
   box-shadow: 0 2px 1px 1px #eee;
   .headerLeft{
     float: left;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 50%;
+    margin-top: -30px;
   }
   img:first-child {
     width: 45px;
@@ -21,10 +28,20 @@
     color: #c50e4a
   }
   .menuBox{
-    // float: left;
+    margin-top: 11px;
     margin-left: 30px;
     background-color: rgba(61, 128, 0, 0);
     display: inline-block;
+    border-bottom: 0;
+    .menuBox-item{
+      width: 100px;
+      color: white;
+      margin: 0 5px;
+      .menuBox-item-div{
+        width: 100%;
+        text-align: center;
+      }
+    }
   }
   .headerRight{
     float: right;
@@ -34,4 +51,8 @@
     top: 50%;
     margin-top: -16.5px;
   }
+}
+
+.ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected{
+  border-bottom: 2px solid #f0f0f0;
 }

@@ -91,7 +91,7 @@ const SearchList = (props) => {
   }
   useEffect(() => {
     handleSearch(query);
-  }, []);
+  }, [props.location.pathname]);
   return (
     <reducerCtx.Provider value={{ store, dispatch }}>
       <div className="searchlistWrapper">

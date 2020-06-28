@@ -42,6 +42,7 @@
     "antd": "^4.3.1",
     "axios": "^0.19.2",
     "customize-cra": "^0.5.0",
+    "dayjs": "^1.8.28",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.3",

@@ -2,7 +2,6 @@ import * as React from "react";
 import { Menu, Icon, Input } from "antd";
 import { withRouter } from "react-router-dom";
 import "./Header.less";
-import list from "../../router/requestList";
 
 const { Search } = Input;
 const Header = withRouter(
@@ -23,7 +22,11 @@ const Header = withRouter(
       return (
         <nav className="headerWrapper">
           <div className="headerLeft">
-            <img src={require("../../images/lemon.png")} onClick={() => this.props.history.push("/")} alt="logo" />
+            <img
+              src={require("../../images/lemon.png")}
+              onClick={() => this.props.history.push("/")}
+              alt="logo"
+            />
             <strong className="headerTitle">网易云音乐</strong>
           </div>
           <Menu
@@ -35,25 +38,26 @@ const Header = withRouter(
             }}
             className="menuBox"
           >
-            <Menu.Item key="home">
-              <Icon type="home" theme="twoTone" />
-              首页
+            <Menu.Item key="home" className="menuBox-item">
+              <div className="menuBox-item-div">首页</div>
             </Menu.Item>
-            <Menu.Item key="list">
-              <Icon type="database" theme="twoTone" />
-              分类
+            <Menu.Item key="list" className="menuBox-item">
+              <div className="menuBox-item-div">分类</div>
             </Menu.Item>
-            <Menu.Item key="other">
-              <Icon type="smile" theme="twoTone" />
-              其他
+            <Menu.Item key="other" className="menuBox-item">
+              <div className="menuBox-item-div">其他</div>
             </Menu.Item>
-            <Menu.Item key="contact">
+            <Menu.Item key="contact" className="menuBox-item">
               <Icon type="contacts" theme="twoTone" />
-              联系我们
+              <div className="menuBox-item-div">联系我们</div>
             </Menu.Item>
           </Menu>
           <div className="headerRight">
-            <Search placeholder="音乐/视频/电台/用户" style={{ width: "200px" }} onSearch={this.handleSearch} />
+            <Search
+              placeholder="音乐/视频/电台/用户"
+              style={{ width: "200px" }}
+              onSearch={this.handleSearch}
+            />
             <em style={{ marginLeft: "10px" }}>登录</em>
           </div>
         </nav>

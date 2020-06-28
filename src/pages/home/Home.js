@@ -27,7 +27,7 @@ function Home() {
     }
     async function getRecommend() {
       let urlPar = {
-        limit: 10,
+        limit: 8,
       };
       const recommend = await list.personalized(urlPar);
       console.log(recommend);
@@ -47,10 +47,14 @@ function Home() {
       }
     }
     async function getTopList() {
-      const toplist = await list.toplist(null);
-      console.log(toplist);
-      if (toplist.code == 200) {
-        setToplist(toplist.list);
+      try{
+        const toplist = await list.toplist(null);
+        console.log(toplist);
+        if (toplist.code == 200) {
+          setToplist(toplist.list);
+        }
+      }catch(e){
+        console.error(e)
       }
     }
     getBanner();
@@ -64,26 +68,26 @@ function Home() {
         <section className="bannerBox">
           <Carousel autoplay effect="fade">
             {bannerList.map((item) => (
-              <div key={item.encodeId} style={{ width: winWidth * 0.7 }}>
-                <img src={item.imageUrl} className="bannerImg" style={{ width: winWidth * 0.7 }} />
+              <div key={item.encodeId} className='bannerBox-global'>
+                <img src={item.imageUrl} className="bannerImg" />
               </div>
             ))}
           </Carousel>
         </section>
-        <section className="recommendBox" style={{ width: winWidth * 0.7 }}>
+        <section className="recommendBox">
           <SectionTitle title="热门推荐" />
           {recommend.map((item) => (
-            <div className="recommendCardWrapper" style={{ width: winWidth * 0.7 * 0.2 }} key={item.id}>
+            <div className="recommendCardWrapper" key={item.id}>
               <Card hoverable className="recommendCard" cover={<img src={item.picUrl} alt={item.alg} />}>
                 <Card.Meta description={item.name}></Card.Meta>
               </Card>
             </div>
           ))}
         </section>
-        <section className="newAlbumBox" style={{ width: winWidth * 0.7 }}>
+        <section className="newAlbumBox">
           <SectionTitle title="新碟上架" />
           {newAlbum.map((item) => (
-            <div className="newAlbumWrapper" style={{ width: winWidth * 0.7 * 0.2 }} key={item.id}>
+            <div className="newAlbumWrapper" key={item.id}>
               <Card
                 hoverable
                 className="newAlbumCard"
@@ -105,7 +109,7 @@ function Home() {
             </div>
           ))}
         </section>
-        <section className="rankListBox" style={{ width: winWidth * 0.7 }}>
+        <section className="rankListBox">
           <SectionTitle title="榜单" rightContent="更多 >>" />
           <Row>
             {toplist.slice(0, 3).map((item, index) => (
