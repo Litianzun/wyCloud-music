@@ -3,7 +3,10 @@
 
 <p>该项目原先只是webpack实操，现在一步步开始仿网易云音乐，最终完成完整的web项目</p>
 
-### 步骤
+### 步骤（后端）
+ https://binaryify.github.io/NeteaseCloudMusicApi/#/
+ 
+### 步骤（前端）
  1. `git clone`后进入项目
  2. `npm i`
  3. 调试运行`npm run dev`
