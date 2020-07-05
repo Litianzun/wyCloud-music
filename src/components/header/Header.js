@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import "./Header.less";
 
 const { Search } = Input;
+/*eslint-disable */
 const Header = withRouter(
   class extends React.Component {
     constructor(props) {

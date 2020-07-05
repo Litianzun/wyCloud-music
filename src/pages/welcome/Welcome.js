@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Typography, Collapse } from "antd";
 import "./Welcome.less";
+import { object } from "prop-types";
 
 const { Text, Paragraph, Title } = Typography;
 const { Panel } = Collapse;
@@ -52,3 +53,7 @@ class Welcome extends Component {
 }
 
 export default Welcome;
+
+Welcome.propTypes = {
+  history: object
+}

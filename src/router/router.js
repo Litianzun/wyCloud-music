@@ -1,5 +1,5 @@
-import React, { useReducer, useContext, createContext } from "react";
-import { Route, Switch, Redirect, HashRouter, BrowserRouter } from "react-router-dom";
+import React, { useReducer, createContext } from "react";
+import { Route, Switch, HashRouter } from "react-router-dom";
 import Header from "../components/header/Header";
 import Welcome from "../pages/welcome/Welcome";
 import Home from "../pages/home/Home";

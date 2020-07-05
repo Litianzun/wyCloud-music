@@ -1,10 +1,11 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { Space, Tag, Divider, List } from "antd";
-import { LikeOutlined, LikeFilled } from "@ant-design/icons";
+import { LikeOutlined } from "@ant-design/icons";
 import "./Mv.less";
 import Color from "../../widget/Color";
 import list from "../../router/requestList";
 import day from "dayjs";
+import { object } from "prop-types";
 
 let offset = 0;
 const Mv = (props) => {
@@ -184,4 +185,10 @@ export default Mv;
 function creatorFormat(e) {
   let arr = e.map((item) => item.userName);
   return arr.join("/");
+}
+
+Mv.propTypes = {
+  match: object,
+  location: object,
+  history: object
 }
