@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config config/webpack.prod.js",
+    "build": "eslint --fix --ext .js src && webpack --config config/webpack.prod.js",
     "dev": "webpack-dev-server --open --config config/webpack.dev.js",
-    "analyze": "NODE_ENV=production npm_config_report=true npm run build"
+    "analyze": "NODE_ENV=production npm_config_report=true npm run build",
+    "lint": "eslint --fix --ext .js src"
   },
   "author": "lidong",
   "license": "ISC",

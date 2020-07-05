@@ -9,7 +9,7 @@ import { object } from "prop-types";
 
 let offset = 0;
 const Mv = (props) => {
-  let mvid = props.match.params.id;
+  const mvid = props.match.params.id;
   const [mvInfo, setMv] = useState([]);
   const [relatedMv, setRelated] = useState([]);
   const [hotComment, setHotComment] = useState([]);
@@ -183,7 +183,7 @@ const Mv = (props) => {
 export default Mv;
 
 function creatorFormat(e) {
-  let arr = e.map((item) => item.userName);
+  const arr = e.map((item) => item.userName);
   return arr.join("/");
 }
 

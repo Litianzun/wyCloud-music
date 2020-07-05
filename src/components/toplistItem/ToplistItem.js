@@ -10,7 +10,7 @@ const ToplistItem = (props) => {
   const [ignored, forceUpdate] = React.useReducer((x) => x + 1, 0); //eslint-disable-line
   React.useEffect(() => {
     async function getDetail() {
-      let urlPar = {
+      const urlPar = {
         id: props.id,
       };
       const detail = await list.playlistDetail(urlPar);
@@ -22,7 +22,7 @@ const ToplistItem = (props) => {
     getDetail();
   }, []);
   function mouseOver(i) {
-    let newdetail = detail;
+    const newdetail = detail;
     newdetail.forEach((item, index) => {
       item.isActive = false;
       if (index === i) {
@@ -33,7 +33,7 @@ const ToplistItem = (props) => {
     forceUpdate();
   }
   function mouseOut(i) {
-    let newdetail = detail;
+    const newdetail = detail;
     newdetail[i].isActive = false;
     setDetail(newdetail);
     forceUpdate();
