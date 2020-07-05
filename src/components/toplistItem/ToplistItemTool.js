@@ -2,6 +2,7 @@ import * as React from "react";
 import "./ToplistItem.less";
 import { reducerCtx } from "../../router/router";
 import { getSong } from "../../utils/getSong";
+import { bool, object } from "prop-types";
 
 const ToplistItemTool = ({ isActive, songInfo }) => {
   function getValue(active) {
@@ -25,3 +26,8 @@ const ToplistItemTool = ({ isActive, songInfo }) => {
 };
 
 export default ToplistItemTool;
+
+ToplistItemTool.propTypes = {
+  isActive: bool,
+  songInfo: object
+}

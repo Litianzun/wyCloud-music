@@ -5,6 +5,7 @@ import "./SearchList.less";
 import list from "../../router/requestList";
 import { reducerCtx, dispatch, store } from "../../router/router";
 import { getSong } from "../../utils/getSong";
+import { object } from "prop-types";
 
 let offset = 0;
 const SearchList = (props) => {
@@ -13,6 +14,7 @@ const SearchList = (props) => {
       title: "曲名",
       dataIndex: "name",
       key: "name",
+      /*eslint-disable */
       render: (text, record, index) => (
         <div
           className="searchCell-name"
@@ -35,7 +37,10 @@ const SearchList = (props) => {
               className="searchCell-name-playIcon"
               onClick={async () => {
                 const album = await list.getAlbum({ id: record.album.id });
-                dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
+                dispatch({
+                  type: "changeSwitch",
+                  payload: { playSwitch: true },
+                });
                 await getSong(
                   album.songs.filter((item) => item.name === record.name)[0],
                   Object.assign(ctx, { dispatch, store })
@@ -45,18 +50,25 @@ const SearchList = (props) => {
           )}
         </div>
       ),
+      /*eslint-enable */
     },
     {
       title: "歌手",
       dataIndex: "artists",
       key: "artist",
-      render: (text) => <a>{text.map((item) => item.name).join("/")}</a>,
+      render: (text) => <a>{text.map((item) => item.name).join("/")}</a>, //eslint-disable-line
     },
-    { title: "专辑", dataIndex: ["album", "name"], key: "album", render: (text) => <span>{"《" + text + "》"}</span> },
+    {
+      title: "专辑",
+      dataIndex: ["album", "name"],
+      key: "album",
+      render: (text) => <span>{"《" + text + "》"}</span>, //eslint-disable-line
+    },
     {
       title: "视频",
       dataIndex: "mvid",
-      render: (text, record, index) => {
+      /*eslint-disable */
+      render: (text) => {
         return text ? (
           <PlaySquareOutlined
             className="searchCell-name-playIcon"
@@ -66,13 +78,14 @@ const SearchList = (props) => {
           />
         ) : null;
       },
+      /*eslint-enable */
     },
   ];
   const [data, setData] = useState([]);
   const [songCount, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const ctx = useContext(reducerCtx);
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0); //eslint-disable-line
   let query = props.location.search.substring(3);
   async function handleSearch() {
     const urlPar = {
@@ -121,3 +134,8 @@ const SearchList = (props) => {
 };
 
 export default SearchList;
+
+SearchList.propTypes = {
+  history: object,
+  location: object,
+};

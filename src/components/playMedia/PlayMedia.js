@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./PlayMedia.less";
 import Color from "../../widget/Color";
+import { string, array, object } from "prop-types";
 
 const PlayMedia = (props) => {
   console.log(props);
@@ -40,3 +41,10 @@ const PlayMedia = (props) => {
 };
 
 export default PlayMedia;
+
+PlayMedia.propTypes = {
+  name: string,
+  ar: array,
+  url: string,
+  al: object
+}

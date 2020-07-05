@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./SectionTitle.less";
 import Color from "../../widget/Color";
+import { string } from "prop-types";
 
 const SectionTitle = (props) => {
   return (
@@ -16,3 +17,8 @@ const SectionTitle = (props) => {
 };
 
 export default SectionTitle;
+
+SectionTitle.propTypes = {
+  title: string,
+  rightContent: string
+}
