@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Carousel, Card, List, Row, Col } from "antd";
+import { Carousel, Card, Row, Col } from "antd";
 import list from "../../router/requestList";
 import "./Home.less";
-import { winHeight, winWidth } from "../../utils/common";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import ToplistItem from "../../components/toplistItem/ToplistItem";
 import { reducerCtx, store, dispatch } from "../../router/router";
