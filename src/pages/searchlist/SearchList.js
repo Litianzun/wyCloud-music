@@ -86,7 +86,7 @@ const SearchList = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const ctx = useContext(reducerCtx);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0); //eslint-disable-line
-  let query = props.location.search.substring(3);
+  const query = props.location.search.substring(3);
   async function handleSearch() {
     const urlPar = {
       keywords: decodeURIComponent(query),

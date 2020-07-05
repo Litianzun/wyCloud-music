@@ -15,7 +15,7 @@ function Home() {
   const ctx = useContext(reducerCtx);
   useEffect(() => {
     async function getBanner() {
-      let urlPar = {
+      const urlPar = {
         type: 0,
       };
       const bannerList = await list.banner(urlPar);
@@ -25,7 +25,7 @@ function Home() {
       }
     }
     async function getRecommend() {
-      let urlPar = {
+      const urlPar = {
         limit: 8,
       };
       const recommend = await list.personalized(urlPar);
@@ -35,7 +35,7 @@ function Home() {
       }
     }
     async function getNewAlbum() {
-      let urlPar = {
+      const urlPar = {
         limit: 5,
         offset: 0,
       };

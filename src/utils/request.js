@@ -4,7 +4,7 @@ import { message } from "antd";
 const baseUrl = "http://localhost:3000";
 
 function GETRequest(url, params) {
-  let promise = axios({
+  const promise = axios({
     headers: {},
     url,
     baseURL: baseUrl,
@@ -19,7 +19,7 @@ function GETRequest(url, params) {
 }
 
 function POSTRequest(url, data) {
-  let promise = axios({
+  const promise = axios({
     headers: {},
     url,
     baseURL: baseUrl,

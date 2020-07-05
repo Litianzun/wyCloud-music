@@ -1,7 +1,7 @@
 import list from '../router/requestList'
 
 export async function getSong(songInfo, ctx) {
-  let params = {
+  const params = {
     id: songInfo.id,
   };
   const res = await list.getSongUrl(params);
