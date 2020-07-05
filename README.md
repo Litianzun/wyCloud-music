@@ -1,4 +1,4 @@
-# webpack-demo
+# wyCloud-music
 <h3>技术栈：webpack+react+antd</h3>
 
 <p>该项目原先只是webpack实操，现在一步步开始仿网易云音乐，最终完成完整的web项目</p>
