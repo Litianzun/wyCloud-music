@@ -5,8 +5,6 @@ import "./Mv.less";
 import Color from "../../widget/Color";
 import list from "../../router/requestList";
 import day from "dayjs";
-import SizeContext from "antd/lib/config-provider/SizeContext";
-import { off } from "process";
 
 let offset = 0;
 const Mv = (props) => {
