@@ -1,9 +1,10 @@
 const common = require("./webpack.common");
 const merge = require("webpack-merge");
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = merge(common, {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   mode: "development",
   devServer: {
     contentBase: "../dist",
@@ -14,5 +15,9 @@ module.exports = merge(common, {
   },
   performance: {
     hints: 'warning'
-  }
+  },
+  plugins: [
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 });

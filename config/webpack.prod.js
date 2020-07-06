@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const path = require("path");
+const webpack = require('webpack')
 
 module.exports = merge(common, {
   mode: "production",
@@ -24,11 +25,17 @@ module.exports = merge(common, {
         }
       }
     },
-    minimizer: [new UglifyJsPlugin()]
+    // minimizer: [new UglifyJsPlugin()]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new BundleAnalyzerPlugin(),
+    new UglifyJsPlugin({
+      sourceMap: true
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
   ],
   performance: {
       hints: 'error'
