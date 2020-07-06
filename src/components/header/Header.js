@@ -6,7 +6,7 @@ import "./Header.less";
 const { Search } = Input;
 /*eslint-disable */
 const Header = withRouter(
-  class extends React.Component {
+  class extends React.PureComponent {
     constructor(props) {
       super(props);
       this.state = {
