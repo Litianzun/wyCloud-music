@@ -2,6 +2,10 @@ import request from "../utils/request";
 
 const list = {
   /**
+   * test
+   */
+  test: (urlPar) => request("get", "test.html", { params: urlPar }),
+  /**
    * 首页轮播图
    */
   banner: (urlPar) => request("get", "/banner", { params: urlPar }),
@@ -12,8 +16,7 @@ const list = {
   /**
    * 推荐新音乐
    */
-  personalizedNewsong: (urlPar) =>
-    request("get", "/personalized/newsong", { params: urlPar }),
+  personalizedNewsong: (urlPar) => request("get", "/personalized/newsong", { params: urlPar }),
   /**
    * 新碟上架
    */
@@ -25,13 +28,11 @@ const list = {
   /**
    * 榜单详情
    */
-  toplistDetail: (urlPar) =>
-    request("get", "/toplist/detail", { params: urlPar }),
+  toplistDetail: (urlPar) => request("get", "/toplist/detail", { params: urlPar }),
   /**
    * 歌单详情
    */
-  playlistDetail: (urlPar) =>
-    request("get", "/playlist/detail", { params: urlPar }),
+  playlistDetail: (urlPar) => request("get", "/playlist/detail", { params: urlPar }),
   /**
    * 获取音乐url
    */
@@ -55,12 +56,23 @@ const list = {
   /**
    * 相关视频
    */
-  getRelatedVideo: (urlPar) =>
-    request("get", "/related/allvideo", { params: urlPar }),
+  getRelatedVideo: (urlPar) => request("get", "/related/allvideo", { params: urlPar }),
   /**
    * mv评论
    */
   getMvComment: (urlPar) => request("get", "/comment/mv", { params: urlPar }),
+  /**
+   * 登录-手机
+   */
+  loginInPhone: (urlPar) => request("get", "/login/cellphone", { params: urlPar }),
+  /**
+   * 登录-邮箱
+   */
+  loginInEmail: (urlPar) => request("get", "/login", { params: urlPar }),
+  /**
+   * 获取用户详情
+   */
+  getUserDetail: (urlPar) => request('get', '/user/detail', {params: urlPar})
 };
 
 export default list;
