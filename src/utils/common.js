@@ -21,3 +21,4 @@ if (document.documentElement && document.documentElement.clientHeight && documen
 }
 
 export { winWidth, winHeight };
+

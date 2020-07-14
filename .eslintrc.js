@@ -15,6 +15,7 @@ module.exports = {
   globals: {
     document: true,
     window: true,
+    localStorage: true
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",

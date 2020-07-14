@@ -19,7 +19,7 @@ class Welcome extends Component {
           <Paragraph>UI框架：antd</Paragraph>
           <Paragraph>字体：阿里巴巴普惠体Heavy！</Paragraph>
           <Text strong type="secondary">
-            本demo主要目的为实操一下webpack
+            本demo为仿网易云音乐，技术锻炼为目的，无其他任何商业用途
           </Text>
           <Paragraph style={{ marginTop: "10px" }}>
             <Title level={3} type="warning">
@@ -28,12 +28,12 @@ class Welcome extends Component {
             <Collapse bordered={false} style={{width: '50%',margin: '0 auto',backgroundColor: 'inherit'}}>
               <Panel header="1">
                 <Text underline>
-                  1.本来是想集成一下typescript，结果发现antd目前只支持create-react-app脚手架的ts环境搭配，webpack自行配置的暂没有方案~
+                  1.useContext+useReducer代替redux的方式，发现不用useContext都可以，用context的目的是为了后期方便reducer拆分
                 </Text>
               </Panel>
               <Panel header="2">
                 <Text underline>
-                  2.目前来说，打出来的包体积还是很大，分析过后很大一部分是由于antd的icons及moment占了很大一部分，issues上也有人提过这个问题，官方暂时还未修复!
+                  2.目前来说，打出来的包体积还是很大，还是可以优化，尤其首页
                 </Text>
               </Panel>
             </Collapse>
