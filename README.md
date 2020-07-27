@@ -16,7 +16,7 @@
  
 <img src="http://qc9tj18zu.bkt.clouddn.com/image/2020-06-29_005414.png" width="200px">
 <img src="https://ftp.bmp.ovh/imgs/2020/07/d659595e7b8b39f8.png" width="200px">
-<img src="http://qc9tj18zu.bkt.clouddn.com/image/2020-06-29_015952.png" width="200px">
+<img src="https://ftp.bmp.ovh/imgs/2020/07/c0e4b23d63bcbcd6.png" width="200px">
 
 *关于redux，做了大胆尝试，用useContext+useReducer的方式代替，发现还挺好用*
 ***
