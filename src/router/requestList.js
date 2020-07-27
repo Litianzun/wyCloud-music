@@ -72,7 +72,15 @@ const list = {
   /**
    * 获取用户详情
    */
-  getUserDetail: (urlPar) => request('get', '/user/detail', {params: urlPar})
+  getUserDetail: (urlPar) => request("get", "/user/detail", { params: urlPar }),
+  /**
+   * 获取歌单评论
+   */
+  getAlbumComment: (urlPar) => request("get", "/comment/album", { params: urlPar }),
+  /**
+   * 获取歌手专辑
+   */
+  getArtistAlbum: (urlPar) => request("get", "/artist/album", { params: urlPar }),
 };
 
 export default list;

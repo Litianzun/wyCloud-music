@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel, Card, Row, Col } from "antd";
 import list from "../../router/requestList";
 import "./Home.less";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import ToplistItem from "../../components/toplistItem/ToplistItem";
 import { reducerCtx, store, dispatch } from "../../router/router";
-import { getSong } from "../../utils/getSong";
+import { object } from "prop-types";
 
-function Home() {
+function Home(props) {
   const [bannerList, setBannerList] = useState([]);
   const [recommend, setRecommend] = useState([]); //推荐歌单
   const [newAlbum, setNewAlbum] = useState([]); //新碟上架
   const [toplist, setToplist] = useState([]); //榜单
-  const ctx = useContext(reducerCtx);
   useEffect(() => {
     async function getBanner() {
       const urlPar = {
@@ -46,14 +45,14 @@ function Home() {
       }
     }
     async function getTopList() {
-      try{
+      try {
         const toplist = await list.toplist(null);
         console.log(toplist);
         if (toplist.code == 200) {
           setToplist(toplist.list);
         }
-      }catch(e){
-        console.error(e)
+      } catch (e) {
+        console.error(e);
       }
     }
     getBanner();
@@ -67,7 +66,7 @@ function Home() {
         <section className="bannerBox">
           <Carousel autoplay effect="fade">
             {bannerList.map((item) => (
-              <div key={item.encodeId} className='bannerBox-global'>
+              <div key={item.encodeId} className="bannerBox-global">
                 <img src={item.imageUrl} className="bannerImg" />
               </div>
             ))}
@@ -95,10 +94,11 @@ function Home() {
                     src={item.picUrl}
                     alt={item.company}
                     onClick={async () => {
-                      const info = await list.getAlbum({id: item.id, limit: 30});
-                      console.log(info)
-                      dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
-                      await getSong(info.songs[0], Object.assign(ctx, { dispatch, store }));
+                      // const info = await list.getAlbum({id: item.id, limit: 30});
+                      // console.log(info)
+                      // dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
+                      // await getSong(info.songs[0], Object.assign(ctx, { dispatch, store }));
+                      props.history.push({ pathname: `/album/${item.id}` });
                     }}
                   />
                 }
@@ -124,3 +124,7 @@ function Home() {
 }
 
 export default Home;
+
+Home.propTypes = {
+  history: object,
+};
