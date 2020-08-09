@@ -20,7 +20,7 @@ const list = {
   /**
    * 新碟上架
    */
-  newAlbum: (urlPar) => request("get", "/top/album", { params: urlPar }),
+  newAlbum: (urlPar) => request("get", "/album/newest", { params: urlPar }),
   /**
    * 榜单
    */

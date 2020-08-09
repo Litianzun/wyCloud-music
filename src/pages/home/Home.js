@@ -34,14 +34,10 @@ function Home(props) {
       }
     }
     async function getNewAlbum() {
-      const urlPar = {
-        limit: 5,
-        offset: 0,
-      };
-      const newAlbum = await list.newAlbum(urlPar);
+      const newAlbum = await list.newAlbum(null);
       console.log(newAlbum);
       if (newAlbum.code == 200) {
-        setNewAlbum(newAlbum.albums);
+        setNewAlbum(newAlbum.albums.slice(0,5));
       }
     }
     async function getTopList() {

@@ -25,7 +25,7 @@ function AlbumDetail(props) {
       /*eslint-disable */
       render: (text, record, index) => (
         <Row align="middle">
-          <small>{index}</small>
+          <small>{index + 1}</small>
           <PlayCircleOutlined
             className="album-columns-icon"
             onClick={async () => {
@@ -33,7 +33,10 @@ function AlbumDetail(props) {
                 type: "changeSwitch",
                 payload: { playSwitch: true },
               });
-              await getSong(songs.filter((item) => item.name === record.name)[0], Object.assign(ctx, { dispatch, store }));
+              await getSong(
+                songs.filter((item) => item.name === record.name)[0],
+                Object.assign(ctx, { dispatch, store })
+              );
             }}
           />
         </Row>
@@ -114,9 +117,16 @@ function AlbumDetail(props) {
                     <h2 style={{ margin: 0 }}>{albumInfo.name}</h2>
                   </Row>
                   <span>
-                    歌手：<a>{albumInfo.artists ? formatArtist(albumInfo.artists) : "-"}</a>
+                    歌手：
+                    <a>
+                      {albumInfo.artists
+                        ? formatArtist(albumInfo.artists)
+                        : "-"}
+                    </a>
                   </span>
-                  <span>发行时间：{day(albumInfo.publishTime).format("YYYY-MM-DD")}</span>
+                  <span>
+                    发行时间：{day(albumInfo.publishTime).format("YYYY-MM-DD")}
+                  </span>
                   <span>发行公司：{albumInfo.company}</span>
                   <AlbumTools style={{ marginTop: "10px", width: "400px" }} />
                 </div>
@@ -140,9 +150,17 @@ function AlbumDetail(props) {
               <span style={{ marginTop: "22px", display: "block" }}>
                 <b>包含歌曲列表</b>&emsp;{songs.length}首歌
               </span>
-              <Table dataSource={songs} columns={columns} rowKey="id" style={{ marginTop: "10px" }} />
+              <Table
+                dataSource={songs}
+                columns={columns}
+                rowKey="id"
+                style={{ marginTop: "10px" }}
+              />
             </div>
-            <Comment info={Object.assign(albumInfo, albumInfo.info)} type="album" />
+            <Comment
+              info={Object.assign(albumInfo, albumInfo.info)}
+              type="album"
+            />
           </section>
           <section className="album-detail-wrapper-rightBox">
             <Divider orientation="left">Ta的其他热门专辑</Divider>
