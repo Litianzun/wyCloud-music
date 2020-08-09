@@ -4,6 +4,7 @@ import { dispatch } from "../../router/router";
 import "./Login.less";
 import list from "../../router/requestList";
 import { bool } from "prop-types";
+import { setCookie } from "../../utils/getCookie";
 
 const Login = (props) => {
   const [loginType, setLoginType] = useState("default"); //登录方式
@@ -36,7 +37,9 @@ const Login = (props) => {
 
   function cacheLoginInfo(res) {
     //存储cookie及账号信息
-    setCookie(res.cookie);
+    document.cookie = res.cookie;
+    setCookie('userId',JSON.stringify(res.profile.userId),15)
+    console.log(document.cookie)
     localStorage.setItem("profile", JSON.stringify(res.profile));
     setPassword("");
     dispatch({
@@ -209,11 +212,5 @@ function renderTitle(type) {
       return "手机号登录";
     case "email":
       return "邮箱登录";
-  }
-}
-
-function setCookie(str) {
-  if (str) {
-    document.cookie = str;
   }
 }
