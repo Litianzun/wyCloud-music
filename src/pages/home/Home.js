@@ -41,7 +41,7 @@ function Home(props) {
       const newAlbum = await list.newAlbum(urlPar);
       console.log(newAlbum);
       if (newAlbum.code == 200) {
-        setNewAlbum(newAlbum.albums);
+        setNewAlbum(newAlbum.albums.slice(0,5));
       }
     }
     async function getTopList() {
