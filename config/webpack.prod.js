@@ -4,15 +4,17 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
 const path = require("path");
-const webpack = require('webpack')
+const webpack = require("webpack");
 
 module.exports = merge(common, {
   mode: "production",
-  devtool: 'cheap-module-source-map',
+  devtool: "cheap-module-source-map",
   output: {
     filename: "[name].[chunkhash:8].js",
-    path: path.resolve(__dirname, "../dist")
+    path: path.resolve(__dirname, "../dist"),
   },
   optimization: {
     runtimeChunk: "single",
@@ -21,9 +23,9 @@ module.exports = merge(common, {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
-          chunks: "all"
-        }
-      }
+          chunks: "all",
+        },
+      },
     },
     // minimizer: [new UglifyJsPlugin()]
   },
@@ -31,13 +33,14 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new BundleAnalyzerPlugin(),
     new UglifyJsPlugin({
-      sourceMap: true
+      sourceMap: true,
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })
+      "process.env.NODE_ENV": JSON.stringify("production"),
+    }),
+    new OptimizeCSSAssetsPlugin(),
   ],
   performance: {
-      hints: 'error'
-  }
+    hints: "error",
+  },
 });
