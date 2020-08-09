@@ -55,17 +55,6 @@ module.exports = {
           { loader: "less-loader" },
         ],
       },
-      // {
-      //   test: /\.(png|jpe?g|gif|svg|ttf|woff2|woff)(\?.*)?$/,
-      //   use: [
-      //     {
-      //       loader: "url-loader",
-      //       options: {
-      //         limit: 10000, // 限制大小
-      //       },
-      //     },
-      //   ],
-      // },
       {
         test: /\.(png|jpg|jpeg|gif|webp|svg)$/,
         use: [{ loader: "file-loader" }],
