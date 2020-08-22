@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Tag, Table, Row, Divider, List, Typography } from "antd";
-import { PlayCircleOutlined } from "@ant-design/icons";
 import "./AlbumDetail.less";
 import list from "../../router/requestList";
-import { reducerCtx, dispatch, store } from "../../router/router";
-import { getSong } from "../../utils/getSong";
 import day from "dayjs";
 import Color from "../../widget/Color";
 import AlbumTools from "../../components/albumTools/AlbumTools";
 import Comment from "../../components/comment/Comment";
 import { object } from "prop-types";
+import { reducerConnect } from "../../reducer/Reducer";
+import SongsTable from '../../components/songsTable/SongsTable'
 
 function AlbumDetail(props) {
   const albumId = props.match.params.id;
@@ -17,51 +16,6 @@ function AlbumDetail(props) {
   const [songs, setSongs] = useState([]);
   const [otherAlbums, setOtherAlbums] = useState([]);
   const [expandFlag, setExpandFlag] = useState(true);
-  const ctx = useContext(reducerCtx);
-  const columns = [
-    {
-      title: "",
-      key: "id",
-      /*eslint-disable */
-      render: (text, record, index) => (
-        <Row align="middle">
-          <small>{index + 1}</small>
-          <PlayCircleOutlined
-            className="album-columns-icon"
-            onClick={async () => {
-              dispatch({
-                type: "changeSwitch",
-                payload: { playSwitch: true },
-              });
-              await getSong(
-                songs.filter((item) => item.name === record.name)[0],
-                Object.assign(ctx, { dispatch, store })
-              );
-            }}
-          />
-        </Row>
-      ),
-      /*eslint-enable */
-    },
-    {
-      title: "歌曲标题",
-      dataIndex: "name",
-    },
-    {
-      title: "时长",
-      dataIndex: "dt",
-      render: (text) => <span>{day(text).format("mm:ss")}</span>, //eslint-disable-line
-    },
-    {
-      title: "歌手",
-      dataIndex: "ar",
-      /*eslint-disable */
-      render: (text) => {
-        return <span>{formatArtist(text)}</span>;
-        /*eslint-enable */
-      },
-    },
-  ];
   async function getAlbumInfo() {
     const info = await list.getAlbum({ id: albumId, limit: 30 });
     console.log(info);
@@ -104,7 +58,7 @@ function AlbumDetail(props) {
     );
   }
   return (
-    <reducerCtx.Provider value={{ store, dispatch }}>
+    // <reducerCtx.Provider value={{ store, dispatch: props.dispatch }}>
       <div style={{ backgroundColor: "#eee" }}>
         <div className="album-detail-wrapper">
           <section className="album-detail-wrapper-leftBox">
@@ -147,15 +101,7 @@ function AlbumDetail(props) {
                   {albumInfo.description}
                 </Typography.Paragraph>
               </div>
-              <span style={{ marginTop: "22px", display: "block" }}>
-                <b>包含歌曲列表</b>&emsp;{songs.length}首歌
-              </span>
-              <Table
-                dataSource={songs}
-                columns={columns}
-                rowKey="id"
-                style={{ marginTop: "10px" }}
-              />
+              <SongsTable songs={songs} dispatch={props.dispatch} />
             </div>
             <Comment
               info={Object.assign(albumInfo, albumInfo.info)}
@@ -168,11 +114,11 @@ function AlbumDetail(props) {
           </section>
         </div>
       </div>
-    </reducerCtx.Provider>
+    // </reducerCtx.Provider>
   );
 }
 
-export default AlbumDetail;
+export default reducerConnect(AlbumDetail);
 
 AlbumDetail.propTypes = {
   match: object,

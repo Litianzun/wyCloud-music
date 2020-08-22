@@ -43,7 +43,7 @@ async function request(type = "get", url, obj = {}) {
   try {
     const result = await promise;
     if (result.status === 200) {
-      console.log(baseUrl + url, type === "get" ? obj.params : obj.data);
+      // console.log(baseUrl + url, type === "get" ? obj.params : obj.data);
       return result.data;
     } else if (300 <= result.status < 400) {
       message.warn(result.statusText);

@@ -81,6 +81,30 @@ const list = {
    * 获取歌手专辑
    */
   getArtistAlbum: (urlPar) => request("get", "/artist/album", { params: urlPar }),
+  /**
+   * 我喜欢的音乐
+   */
+  getMyLike: urlPar => request('get', '/likelist', { params: urlPar }),
+  /**
+   * 收藏的歌手列表
+   */
+  getMyArtists: urlPar => request('get', '/artist/sublist', { params: urlPar }),
+  /**
+   * 收藏的mv列表
+   */
+  getMyMV: urlPar => request('get', '/mv/sublist', { params: urlPar }),
+  /**
+   * 我的歌单
+   */
+  getMyPlayList: urlPar => request('get','/user/playlist', { params: urlPar }),
+  /**
+   * 获取用户信息及歌单等
+   */
+  getUserInfo: urlPar => request('get', '/user/subcount', { params: urlPar }),
+  /**
+   * 获取歌单详情
+   */
+  getPlayListDetail: urlPar => request('get', '/playlist/detail', { params: urlPar })
 };
 
 export default list;

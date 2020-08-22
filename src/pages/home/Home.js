@@ -4,7 +4,6 @@ import list from "../../router/requestList";
 import "./Home.less";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import ToplistItem from "../../components/toplistItem/ToplistItem";
-import { reducerCtx, store, dispatch } from "../../router/router";
 import { object } from "prop-types";
 
 function Home(props) {
@@ -57,7 +56,6 @@ function Home(props) {
     getTopList();
   }, []);
   return (
-    <reducerCtx.Provider value={{ store, dispatch }}>
       <div className="homeWrapper">
         <section className="bannerBox">
           <Carousel autoplay effect="fade">
@@ -115,7 +113,6 @@ function Home(props) {
           </Row>
         </section>
       </div>
-    </reducerCtx.Provider>
   );
 }
 

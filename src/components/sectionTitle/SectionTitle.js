@@ -5,7 +5,7 @@ import { string } from "prop-types";
 
 const SectionTitle = (props) => {
   return (
-    <div className="sectionTitle">
+    <div className="sectionTitle" style={props.style}>
       {/* <div className="prefix" /> */}
       <div className='sectionTitle-content'>
         <span>{props.title}</span>

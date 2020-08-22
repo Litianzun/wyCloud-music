@@ -1,0 +1,130 @@
+.myWrapper {
+  width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: white;
+  display: flex;
+  padding-bottom: 20px;
+  .my-left {
+    width: 290px;
+    padding: 20px;
+    ul {
+      list-style: none;
+      padding: 0;
+      li:not(:first-of-type) {
+        margin-top: 8px;
+      }
+    }
+    .render-playlist-item {
+      width: 250px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 3px;
+      }
+      .render-playlist-item-main {
+        > span {
+          font-size: 14px;
+        }
+        small {
+          color: #888;
+        }
+        flex: 1;
+        height: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 12px;
+      }
+    }
+  }
+  .my-right {
+    width: 910px;
+    border-left: 1px solid #eee;
+    padding: 20px;
+    .my-right-playlist {
+      display: flex;
+      align-items: center;
+      > img {
+        width: 180px;
+        height: 180px;
+      }
+      .my-right-playlist-main {
+        flex: 1;
+        height: 180px;
+        padding: 0 20px;
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+        }
+      }
+    }
+    .myArtists-item {
+      width: 100%;
+      height: 130px;
+      display: flex;
+      > img {
+        width: 106px;
+        height: 106px;
+      }
+      .myArtists-item-main {
+        flex: 1;
+        height: 106px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 15px;
+        > small {
+          margin-top: 15px;
+        }
+      }
+    }
+    .myMv-wrapper {
+      width: 877px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: -20px;
+      .myMv-item {
+        height: 190px;
+        cursor: pointer;
+        flex: 0 0 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-right: 7px;
+        position: relative;
+        z-index: 1;
+        img {
+          width: 100%;
+          height: 130px;
+          filter: brightness(80%);
+        }
+        .myMv-item-titleBox .myMv-item-title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          width: 168px;
+          overflow: hidden;
+        }
+        i {
+          font-size: 13px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          width: 210px;
+          overflow: hidden;
+        }
+        small {
+          color: white;
+          position: absolute;
+          top: 105px;
+          left: 5px;
+          z-index: 2;
+        }
+      }
+    }
+  }
+}

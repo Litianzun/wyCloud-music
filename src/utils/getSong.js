@@ -1,12 +1,13 @@
 import list from '../router/requestList'
+import {dispatch} from '../router/router'
 
-export async function getSong(songInfo, ctx) {
+export async function getSong(songInfo) {
   const params = {
     id: songInfo.id,
   };
   const res = await list.getSongUrl(params);
   if (res.code === 200) {
-    ctx.dispatch({
+    dispatch({
       type: "setSong",
       payload: { song: res.data && res.data.length > 0 ? Object.assign({}, res.data[0], songInfo) : null },
     });

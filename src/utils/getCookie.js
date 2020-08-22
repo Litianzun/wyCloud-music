@@ -1,15 +1,7 @@
-export function getcookie(keys) {
-  var arr = document.cookie.split(";");
-
-  for (var i = 0; i < arr.length; i++) {
-    var ass = arr[i].split("=");
-
-    if (ass[0].trim() == keys) {
-      return ass[i];
-    }
-  }
-
-  return false;
+export function getCookie(name) {
+  var arr,
+    reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
 }
 
 export function setCookie(name, value, expiredays) {
@@ -17,5 +9,17 @@ export function setCookie(name, value, expiredays) {
 
   exdate.setDate(exdate.getDate() + expiredays);
 
-  document.cookie = name + "=" + escape(value) + (expiredays == null ? "" : ";expires=" + exdate.toGMTString());
+  document.cookie =
+    name +
+    "=" +
+    escape(value) +
+    (expiredays == null ? "" : ";expires=" + exdate.toGMTString());
+}
+
+export function delCookie(name) {
+  var exp = new Date();
+  exp.setTime(exp.getTime() - 1);
+  var cval = getCookie(name);
+  if (cval != null)
+    document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }

@@ -17,7 +17,8 @@ const Header = withRouter(
       this.handleSearch = this.handleSearch.bind(this);
     }
     async handleSearch(v) {
-      this.props.history.push({ pathname: `/searchlist?s=${v}` });
+      // this.props.history.push({ pathname: `/searchlist?s=${v}` });
+      window.location.href=`/#/searchlist?s=${v}`
     }
     render() {
       let path = this.props.location.pathname;
@@ -41,11 +42,11 @@ const Header = withRouter(
               <Menu.Item key="home" className="menuBox-item">
                 <div className="menuBox-item-div">首页</div>
               </Menu.Item>
-              <Menu.Item key="list" className="menuBox-item">
-                <div className="menuBox-item-div">分类</div>
+              <Menu.Item key="my" className="menuBox-item">
+                <div className="menuBox-item-div">我的音乐</div>
               </Menu.Item>
               <Menu.Item key="other" className="menuBox-item">
-                <div className="menuBox-item-div">其他</div>
+                <div className="menuBox-item-div">朋友</div>
               </Menu.Item>
               <Menu.Item key="contact" className="menuBox-item">
                 <Icon type="contacts" theme="twoTone" />
