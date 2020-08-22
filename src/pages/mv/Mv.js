@@ -9,7 +9,7 @@ import { object } from "prop-types";
 
 const Mv = (props) => {
   const mvid = props.match.params.id;
-  const [mvInfo, setMv] = useState([]);
+  const [mvInfo, setMv] = useState({});
   const [relatedMv, setRelated] = useState([]);
   async function getMv() {
     const info = await list.getMv({ mvid });

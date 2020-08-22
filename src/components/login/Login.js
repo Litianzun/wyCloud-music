@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Input, Button, Checkbox, Row, message } from "antd";
 import { dispatch } from "../../router/router";
+import {reducerConnect} from '../../reducer/Reducer'
 import "./Login.less";
 import list from "../../router/requestList";
 import { bool } from "prop-types";
@@ -38,7 +39,7 @@ const Login = (props) => {
   function cacheLoginInfo(res) {
     //存储cookie及账号信息
     document.cookie = res.cookie;
-    setCookie('userId',JSON.stringify(res.profile.userId),15)
+    setCookie('userId',res.profile.userId,15)
     console.log(document.cookie)
     localStorage.setItem("profile", JSON.stringify(res.profile));
     setPassword("");
@@ -164,6 +165,7 @@ const Login = (props) => {
         return null;
     }
   };
+  console.log('loginprop',props)
   return (
     <Modal
       visible={props.visible}
@@ -198,7 +200,7 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default reducerConnect(Login);
 
 Login.propTypes = {
   visible: bool,

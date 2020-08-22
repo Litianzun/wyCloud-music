@@ -1,14 +1,14 @@
 import * as React from "react";
 import "./ToplistItem.less";
-import { reducerCtx } from "../../router/router";
+import {reducerConnect} from '../../reducer/Reducer'
 import { getSong } from "../../utils/getSong";
 import { bool, object } from "prop-types";
 
-const ToplistItemTool = ({ isActive, songInfo }) => {
+const ToplistItemTool = ({ isActive, songInfo,...rests }) => {
   function getValue(active) {
     return active;
   }
-  const ctx = React.useContext(reducerCtx);
+  // const ctx = React.useContext(reducerCtx);
   const memoizedActive = React.useMemo(() => getValue(isActive), [isActive]);
   return (
     <div className="toolWrapper">
@@ -17,15 +17,15 @@ const ToplistItemTool = ({ isActive, songInfo }) => {
         alt="play-icon"
         hidden={!memoizedActive}
         onClick={async () => {
-          ctx.dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
-          await getSong(songInfo,ctx);
+          rests.dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
+          await getSong(songInfo);
         }}
       />
     </div>
   );
 };
 
-export default ToplistItemTool;
+export default reducerConnect(ToplistItemTool);
 
 ToplistItemTool.propTypes = {
   isActive: bool,

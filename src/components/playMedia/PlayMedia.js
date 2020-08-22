@@ -4,7 +4,6 @@ import Color from "../../widget/Color";
 import { string, array, object } from "prop-types";
 
 const PlayMedia = (props) => {
-  console.log(props);
   const [hiddenFlag, setflag] = React.useState(false);
   let timer = null;
   function toHide() {

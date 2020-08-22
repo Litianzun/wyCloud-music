@@ -3,9 +3,9 @@ import { Table } from "antd";
 import { PlayCircleOutlined, PlaySquareOutlined } from "@ant-design/icons";
 import "./SearchList.less";
 import list from "../../router/requestList";
-import { reducerCtx, dispatch, store } from "../../router/router";
 import { getSong } from "../../utils/getSong";
 import { object } from "prop-types";
+import { reducerConnect } from "../../reducer/Reducer";
 
 let offset = 0;
 const SearchList = (props) => {
@@ -37,13 +37,12 @@ const SearchList = (props) => {
               className="searchCell-name-playIcon"
               onClick={async () => {
                 const album = await list.getAlbum({ id: record.album.id });
-                dispatch({
+                props.dispatch({
                   type: "changeSwitch",
                   payload: { playSwitch: true },
                 });
                 await getSong(
                   album.songs.filter((item) => item.name === record.name)[0],
-                  Object.assign(ctx, { dispatch, store })
                 );
               }}
             />
@@ -84,7 +83,6 @@ const SearchList = (props) => {
   const [data, setData] = useState([]);
   const [songCount, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const ctx = useContext(reducerCtx);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0); //eslint-disable-line
   const query = props.location.search.substring(3);
   async function handleSearch() {
@@ -104,9 +102,8 @@ const SearchList = (props) => {
   }
   useEffect(() => {
     handleSearch(query);
-  }, [props.location.pathname]);
+  }, [props.location.search]);
   return (
-    <reducerCtx.Provider value={{ store, dispatch }}>
       <div className="searchlistWrapper">
         <Table
           columns={columns}
@@ -129,11 +126,10 @@ const SearchList = (props) => {
           }}
         />
       </div>
-    </reducerCtx.Provider>
   );
 };
 
-export default SearchList;
+export default reducerConnect(SearchList);
 
 SearchList.propTypes = {
   history: object,

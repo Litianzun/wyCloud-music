@@ -8,6 +8,7 @@ import SearchList from "../pages/searchlist/SearchList";
 import Mv from "../pages/mv/Mv";
 import Login from "../components/login/Login";
 import AlbumDetail from "../pages/albumDetail/AlbumDetail";
+import My from '../pages/my/My'
 
 export const reducerCtx = createContext({});
 const initialState = {
@@ -39,6 +40,7 @@ const Router = () => {
         <Route path="/searchlist" component={SearchList} />
         <Route path="/mv/:id" component={Mv} />
         <Route path='/album/:id' component={AlbumDetail} />
+        <Route path='/my' component={My} />
       </Switch>
       {store.playSwitch && <PlayMedia {...store.song} />}
       {<Login visible={store.loginFlag} />}
