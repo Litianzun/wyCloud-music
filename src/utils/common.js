@@ -15,10 +15,13 @@ if (window.innerHeight) {
   winHeight = document.body.clientHeight;
 }
 
-if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+if (
+  document.documentElement &&
+  document.documentElement.clientHeight &&
+  document.documentElement.clientWidth
+) {
   winHeight = document.documentElement.clientHeight;
   winWidth = document.documentElement.clientWidth;
 }
 
 export { winWidth, winHeight };
-

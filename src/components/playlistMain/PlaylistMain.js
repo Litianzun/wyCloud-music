@@ -1,12 +1,13 @@
 import React from "react";
 import { Row, Tag } from "antd";
-import AlbumTools from "../../../components/albumTools/AlbumTools";
-import SongsTable from "../../../components/songsTable/SongsTable";
-import { reducerConnect } from "../../../reducer/Reducer";
+import AlbumTools from "../albumTools/AlbumTools";
+import SongsTable from "../songsTable/SongsTable";
+import Comment from "../comment/Comment";
+import { reducerConnect } from "../../reducer/Reducer";
 import day from "dayjs";
+import './PlaylistMain.less'
 
 const PlaylistMain = (props) => {
-  console.log(props);
   return (
     <>
       <div className="my-right-playlist">
@@ -27,10 +28,11 @@ const PlaylistMain = (props) => {
               </small>
             </Row>
           )}
-          <AlbumTools style={{ marginTop: "13px", width: "400px" }} />
+          <AlbumTools style={{ marginTop: "13px", width: "400px" }} {...props} />
         </div>
       </div>
       <SongsTable songs={props.tracks || []} dispatch={props.dispatch} />
+      <Comment type='playlist' info={props} />
     </>
   );
 };

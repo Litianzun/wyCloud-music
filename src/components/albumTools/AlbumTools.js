@@ -1,7 +1,13 @@
 import React from "react";
 import { Button } from "antd";
-import { PlayCircleOutlined, DownloadOutlined, FolderAddOutlined, MessageOutlined, ShareAltOutlined } from "@ant-design/icons";
-import './AlbumTools.less'
+import {
+  PlayCircleOutlined,
+  DownloadOutlined,
+  FolderAddOutlined,
+  MessageOutlined,
+  ShareAltOutlined,
+} from "@ant-design/icons";
+import "./AlbumTools.less";
 import { object } from "prop-types";
 
 const AlbumTools = (props) => {
@@ -11,23 +17,23 @@ const AlbumTools = (props) => {
         播放
       </Button>
       <Button size="small" icon={<FolderAddOutlined />}>
-        收藏
+        {props.subscribedCount ? `(${props.subscribedCount})` : "收藏"}
       </Button>
       <Button size="small" icon={<ShareAltOutlined />}>
-        999+
+        ({props.shareCount})
       </Button>
       <Button size="small" icon={<DownloadOutlined />}>
         下载
       </Button>
       <Button size="small" icon={<MessageOutlined />}>
-        8338
+        ({props.commentCount})
       </Button>
     </div>
   );
 };
 
-export default AlbumTools
+export default AlbumTools;
 
 AlbumTools.propTypes = {
-  style: object
-}
+  style: object,
+};

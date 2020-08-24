@@ -31,6 +31,13 @@ const Comment = ({ info, type }) => {
         });
         break;
       }
+      case 'playlist': {
+        comment = await list.getPlaylistComment({
+          id: info.id,
+          limit: 20,
+          offset
+        })
+      }
     }
     console.log(comment);
     if (comment.code == 200) {

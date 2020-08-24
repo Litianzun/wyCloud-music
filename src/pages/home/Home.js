@@ -36,7 +36,7 @@ function Home(props) {
       const newAlbum = await list.newAlbum(null);
       console.log(newAlbum);
       if (newAlbum.code == 200) {
-        setNewAlbum(newAlbum.albums.slice(0,5));
+        setNewAlbum(newAlbum.albums.slice(0, 5));
       }
     }
     async function getTopList() {
@@ -56,63 +56,76 @@ function Home(props) {
     getTopList();
   }, []);
   return (
-      <div className="homeWrapper">
-        <section className="bannerBox">
-          <Carousel autoplay effect="fade">
-            {bannerList.map((item) => (
-              <div key={item.encodeId} className="bannerBox-global">
-                <img src={item.imageUrl} className="bannerImg" />
-              </div>
-            ))}
-          </Carousel>
-        </section>
-        <section className="recommendBox">
-          <SectionTitle title="热门推荐" />
-          {recommend.map((item) => (
-            <div className="recommendCardWrapper" key={item.id}>
-              <Card hoverable className="recommendCard" cover={<img src={item.picUrl} alt={item.alg} />}>
-                <Card.Meta description={item.name}></Card.Meta>
-              </Card>
+    <div className="homeWrapper">
+      <section className="bannerBox">
+        <Carousel autoplay effect="fade">
+          {bannerList.map((item) => (
+            <div key={item.encodeId} className="bannerBox-global">
+              <img src={item.imageUrl} className="bannerImg" />
             </div>
           ))}
-        </section>
-        <section className="newAlbumBox">
-          <SectionTitle title="新碟上架" />
-          {newAlbum.map((item) => (
-            <div className="newAlbumWrapper" key={item.id}>
-              <Card
-                hoverable
-                className="newAlbumCard"
-                cover={
-                  <img
-                    src={item.picUrl}
-                    alt={item.company}
-                    onClick={async () => {
-                      // const info = await list.getAlbum({id: item.id, limit: 30});
-                      // console.log(info)
-                      // dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
-                      // await getSong(info.songs[0], Object.assign(ctx, { dispatch, store }));
-                      props.history.push({ pathname: `/album/${item.id}` });
-                    }}
-                  />
-                }
-              >
-                <Card.Meta title={item.name} description={item.artist && item.artist.name} />
-              </Card>
-            </div>
+        </Carousel>
+      </section>
+      <section className="recommendBox">
+        <SectionTitle title="热门推荐" />
+        {recommend.map((item) => (
+          <div
+            className="recommendCardWrapper"
+            key={item.id}
+            onClick={() => {
+              props.history.push(`/playlist/${item.id}`);
+            }}
+          >
+            <Card
+              hoverable
+              className="recommendCard"
+              cover={<img src={item.picUrl} alt={item.alg} />}
+            >
+              <Card.Meta description={item.name}></Card.Meta>
+            </Card>
+          </div>
+        ))}
+      </section>
+      <section className="newAlbumBox">
+        <SectionTitle title="新碟上架" />
+        {newAlbum.map((item) => (
+          <div className="newAlbumWrapper" key={item.id}>
+            <Card
+              hoverable
+              className="newAlbumCard"
+              cover={
+                <img
+                  src={item.picUrl}
+                  alt={item.company}
+                  onClick={async () => {
+                    // const info = await list.getAlbum({id: item.id, limit: 30});
+                    // console.log(info)
+                    // dispatch({ type: "changeSwitch", payload: { playSwitch: true } });
+                    // await getSong(info.songs[0], Object.assign(ctx, { dispatch, store }));
+                    props.history.push({ pathname: `/album/${item.id}` });
+                  }}
+                />
+              }
+            >
+              <Card.Meta
+                title={item.name}
+                description={item.artist && item.artist.name}
+              />
+            </Card>
+          </div>
+        ))}
+      </section>
+      <section className="rankListBox">
+        <SectionTitle title="榜单" rightContent="更多 >>" />
+        <Row>
+          {toplist.slice(0, 3).map((item, index) => (
+            <Col span={8} key={index}>
+              <ToplistItem {...item} />
+            </Col>
           ))}
-        </section>
-        <section className="rankListBox">
-          <SectionTitle title="榜单" rightContent="更多 >>" />
-          <Row>
-            {toplist.slice(0, 3).map((item, index) => (
-              <Col span={8} key={index}>
-                <ToplistItem {...item} />
-              </Col>
-            ))}
-          </Row>
-        </section>
-      </div>
+        </Row>
+      </section>
+    </div>
   );
 }
 
