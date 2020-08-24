@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Space, Tag, Divider, List, Row, Col } from "antd";
 import "./My.less";
 import Color from "../../widget/Color";
 import list from "../../router/requestList";
-import day from "dayjs";
 import { object } from "prop-types";
 import { getCookie } from "../../utils/getCookie";
-import AlbumTools from "../../components/albumTools/AlbumTools";
-import PlaylistMain from "./component/PlaylistMain";
+import PlaylistMain from "../../components/playlistMain/PlaylistMain";
 import MyArtists from "./component/MyArtists";
 import MyMv from "./component/MyMV";
 

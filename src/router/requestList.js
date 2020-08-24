@@ -104,7 +104,15 @@ const list = {
   /**
    * 获取歌单详情
    */
-  getPlayListDetail: urlPar => request('get', '/playlist/detail', { params: urlPar })
+  getPlayListDetail: urlPar => request('get', '/playlist/detail', { params: urlPar }),
+  /**
+   * 歌单评论
+   */
+  getPlaylistComment: urlPar => request('get', '/comment/playlist', { params: urlPar }),
+  /**
+   * 热门歌单
+   */
+  getHotPlaylist: urlPar => request('get', '/top/playlist', { params: urlPar })
 };
 
 export default list;
