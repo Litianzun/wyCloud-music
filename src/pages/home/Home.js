@@ -55,12 +55,25 @@ function Home(props) {
     getNewAlbum();
     getTopList();
   }, []);
+  function handleBannerCallback(item) {
+    if (item.targetType === 1) {
+      props.history.push(`/song/${item.targetId}`);
+    } else if(item.targetType === 3000) {
+      window.open(item.url);
+    } else {
+      console.log(item)
+    }
+  }
   return (
     <div className="homeWrapper">
       <section className="bannerBox">
         <Carousel autoplay effect="fade">
           {bannerList.map((item) => (
-            <div key={item.encodeId} className="bannerBox-global">
+            <div
+              key={item.encodeId}
+              className="bannerBox-global"
+              onClick={() => handleBannerCallback(item)}
+            >
               <img src={item.imageUrl} className="bannerImg" />
             </div>
           ))}

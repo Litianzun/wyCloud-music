@@ -112,7 +112,23 @@ const list = {
   /**
    * 热门歌单
    */
-  getHotPlaylist: urlPar => request('get', '/top/playlist', { params: urlPar })
+  getHotPlaylist: urlPar => request('get', '/top/playlist', { params: urlPar }),
+  /**
+   * 获取歌词
+   */
+  getLyric: urlPar => request('get', '/lyric', { params: urlPar }),
+  /**
+   * 歌曲详情
+   */
+  getSongDetail: urlPar => request('get', '/song/detail', { params: urlPar }),
+  /**
+   * 歌曲评论
+   */
+  getSongComment: urlPar => request('get', '/comment/music', { params: urlPar }),
+  /**
+   * 相似歌曲
+   */
+  getSimiSongs: urlPar => request( 'get', '/simi/song', { params: urlPar })
 };
 
 export default list;
