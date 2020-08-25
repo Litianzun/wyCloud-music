@@ -24,4 +24,11 @@ if (
   winWidth = document.documentElement.clientWidth;
 }
 
-export { winWidth, winHeight };
+/**
+ * 数字量化
+ */
+function formatCount(num){
+  return num/100000 >=1 ? Math.floor(num/10000) + '万' : num
+}
+
+export { winWidth, winHeight, formatCount };

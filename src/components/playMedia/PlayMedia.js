@@ -38,7 +38,7 @@ const PlayMedia = (props) => {
         onDoubleClick={async () => {
           await getSong(item);
         }}
-        extra={creatorFormat(item.ar)}
+        extra={creatorFormat(item.ar || item.artists)}
         style={{ backgroundColor: item.id === props.id ? "#eee" : "#fff" }}
       >
         {item.name}

@@ -12,6 +12,7 @@ const Comment = ({ info, type }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hotComment, setHotComment] = useState([]);
   const [allComment, setComment] = useState([]);
+  const [songTotal, setSongTotal] = useState(0)
   async function getComment() {
     let comment = null;
     switch (type) {
@@ -31,20 +32,31 @@ const Comment = ({ info, type }) => {
         });
         break;
       }
-      case 'playlist': {
+      case "playlist": {
         comment = await list.getPlaylistComment({
           id: info.id,
           limit: 20,
-          offset
-        })
+          offset,
+        });
+        break;
+      }
+      case "song": {
+        comment = await list.getSongComment({
+          id: info.id,
+          limit: 20,
+          offset,
+        });
+        break;
       }
     }
-    console.log(comment);
     if (comment.code == 200) {
       if (comment.hotComments) {
         setHotComment(comment.hotComments);
       }
       setComment(comment.comments);
+      if(type === 'song') {
+        setSongTotal(comment.total)
+      }
     }
   }
   useEffect(() => {
@@ -65,7 +77,9 @@ const Comment = ({ info, type }) => {
             <small>{day(item.time).format("YYYY年MM月DD日")}</small>
             <div>
               <LikeOutlined style={{ color: Color.blue }} />
-              <span style={{ fontSize: "12px" }}>&nbsp;({item.likedCount})</span>
+              <span style={{ fontSize: "12px" }}>
+                &nbsp;({item.likedCount})
+              </span>
               <Divider type="vertical" />
               <a>回复</a>
             </div>
@@ -76,15 +90,19 @@ const Comment = ({ info, type }) => {
   }
   return (
     <Fragment>
-      <div className="mv-separator">
+      <div className="mv-separator" id='commentPoint' name='commentPoint'>
         <b>评论</b>
-        <span>共{info.commentCount}条评论</span>
+        <span>共{type !== 'song' ? info.commentCount : songTotal}条评论</span>
       </div>
       <section className="mv-comment">
         {hotComment.length > 0 && (
           <Fragment>
             <Divider orientation="left">精彩评论</Divider>
-            <List dataSource={hotComment} renderItem={_renderItem} style={{ width: "890px" }} />
+            <List
+              dataSource={hotComment}
+              renderItem={_renderItem}
+              style={{ width: "890px" }}
+            />
           </Fragment>
         )}
         <Divider orientation="left">最新评论</Divider>
@@ -94,7 +112,7 @@ const Comment = ({ info, type }) => {
           style={{ width: "890px" }}
           pagination={{
             pageSize: 20,
-            total: info.commentCount,
+            total: type !== 'song' ? info.commentCount : songTotal,
             current: currentPage,
             defaultCurrent: 1,
             showSizeChanger: false,
@@ -115,5 +133,5 @@ export default Comment;
 
 Comment.propTypes = {
   info: object,
-  type: string
-}
+  type: string,
+};
