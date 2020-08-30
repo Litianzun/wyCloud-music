@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Input, Button, Checkbox, Row, message } from "antd";
 import { dispatch } from "../../router/router";
-import {reducerConnect} from '../../reducer/Reducer'
+import { reducerConnect } from "../../reducer/Reducer";
 import "./Login.less";
 import list from "../../router/requestList";
 import { bool } from "prop-types";
-import { setCookie } from "../../utils/getCookie";
+import { setCookie, getCookie } from "../../utils/getCookie";
 
 const Login = (props) => {
   const [loginType, setLoginType] = useState("default"); //登录方式
@@ -13,6 +13,16 @@ const Login = (props) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  async function getUserDetail(id) {
+    const loginRes = await list.getUserDetail({ uid: id });
+    console.log(loginRes);
+    if (loginRes.code === 200) {
+      dispatch({
+        type: "setAccount",
+        payload: { profile: loginRes.profile },
+      });
+    }
+  }
   async function loginForPhone() {
     const params = {
       phone,
@@ -36,12 +46,12 @@ const Login = (props) => {
     }
   }
 
-  function cacheLoginInfo(res) {
+  async function cacheLoginInfo(res) {
     //存储cookie及账号信息
     document.cookie = res.cookie;
-    setCookie('userId',res.profile.userId,15)
-    console.log(document.cookie)
-    localStorage.setItem("profile", JSON.stringify(res.profile));
+    setCookie("userId", res.profile.userId, 15);
+    console.log(document.cookie);
+    // localStorage.setItem("profile", JSON.stringify(res.profile));
     setPassword("");
     dispatch({
       type: "login",
@@ -49,6 +59,7 @@ const Login = (props) => {
         loginFlag: false,
       },
     });
+    getUserDetail(res.profile.userId);
   }
   const renderDefault = () => (
     <div className="login-left">
@@ -56,7 +67,10 @@ const Login = (props) => {
       <Button
         onClick={() => {
           if (!termsFlag) {
-            message.info("请先勾选同意《服务条款》《隐私政策》《儿童隐私政策》", 2);
+            message.info(
+              "请先勾选同意《服务条款》《隐私政策》《儿童隐私政策》",
+              2
+            );
             return;
           }
           setLoginType("phone");
@@ -68,7 +82,10 @@ const Login = (props) => {
       <Button
         onClick={() => {
           if (!termsFlag) {
-            message.info("请先勾选同意《服务条款》《隐私政策》《儿童隐私政策》", 2);
+            message.info(
+              "请先勾选同意《服务条款》《隐私政策》《儿童隐私政策》",
+              2
+            );
             return;
           }
           setLoginType("email");
@@ -79,16 +96,28 @@ const Login = (props) => {
       </Button>
       <Button type="ghost">注册</Button>
       <Row align="middle">
-        <Checkbox onChange={(e) => setTermsFlag(e.target.checked)} checked={termsFlag} />
+        <Checkbox
+          onChange={(e) => setTermsFlag(e.target.checked)}
+          checked={termsFlag}
+        />
         <small style={{ marginLeft: "5px" }}>
           同意
-          <a href="https://st.music.163.com/official-terms/service" target="blank">
+          <a
+            href="https://st.music.163.com/official-terms/service"
+            target="blank"
+          >
             《服务条款》
           </a>
-          <a href="https://st.music.163.com/official-terms/privacy" target="blank">
+          <a
+            href="https://st.music.163.com/official-terms/privacy"
+            target="blank"
+          >
             《隐私政策》
           </a>
-          <a href="https://st.music.163.com/official-terms/children" target="blank">
+          <a
+            href="https://st.music.163.com/official-terms/children"
+            target="blank"
+          >
             《儿童隐私政策》
           </a>
         </small>
@@ -165,7 +194,6 @@ const Login = (props) => {
         return null;
     }
   };
-  console.log('loginprop',props)
   return (
     <Modal
       visible={props.visible}

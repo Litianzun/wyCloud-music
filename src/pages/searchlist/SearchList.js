@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Table } from "antd";
 import { PlayCircleOutlined, PlaySquareOutlined } from "@ant-design/icons";
 import "./SearchList.less";
@@ -6,6 +6,7 @@ import list from "../../router/requestList";
 import { getSong } from "../../utils/getSong";
 import { object } from "prop-types";
 import { reducerConnect } from "../../reducer/Reducer";
+import { Link } from "react-router-dom";
 
 let offset = 0;
 const SearchList = (props) => {
@@ -31,7 +32,9 @@ const SearchList = (props) => {
             forceUpdate();
           }}
         >
-          <span>{text}</span>
+          <Link to={`/song/${record.id}`} style={{ color: "#333" }}>
+            {text}
+          </Link>
           {record.isActive && (
             <PlayCircleOutlined
               className="searchCell-name-playIcon"
@@ -42,7 +45,7 @@ const SearchList = (props) => {
                   payload: { playSwitch: true },
                 });
                 await getSong(
-                  album.songs.filter((item) => item.name === record.name)[0],
+                  album.songs.filter((item) => item.name === record.name)[0]
                 );
               }}
             />
@@ -55,7 +58,9 @@ const SearchList = (props) => {
       title: "歌手",
       dataIndex: "artists",
       key: "artist",
-      render: (text) => <a>{text.map((item) => item.name).join("/")}</a>, //eslint-disable-line
+      render: (text, record) => (
+        <a>{text.map((item) => item.name).join("/")}</a>
+      ), //eslint-disable-line
     },
     {
       title: "专辑",
@@ -104,28 +109,28 @@ const SearchList = (props) => {
     handleSearch(query);
   }, [props.location.search]);
   return (
-      <div className="searchlistWrapper">
-        <Table
-          columns={columns}
-          dataSource={data}
-          rowKey="id"
-          size="middle"
-          style={{ width: "80%", margin: "0 auto" }}
-          pagination={{
-            pageSize: 20,
-            total: songCount,
-            current: currentPage,
-            defaultCurrent: 1,
-            showSizeChanger: false,
-            showQuickJumper: true,
-            onChange: (page, pageSize) => {
-              offset = (page - 1) * pageSize;
-              setCurrentPage(page);
-              handleSearch();
-            },
-          }}
-        />
-      </div>
+    <div className="searchlistWrapper">
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey="id"
+        size="middle"
+        style={{ width: "80%", margin: "0 auto" }}
+        pagination={{
+          pageSize: 20,
+          total: songCount,
+          current: currentPage,
+          defaultCurrent: 1,
+          showSizeChanger: false,
+          showQuickJumper: true,
+          onChange: (page, pageSize) => {
+            offset = (page - 1) * pageSize;
+            setCurrentPage(page);
+            handleSearch();
+          },
+        }}
+      />
+    </div>
   );
 };
 

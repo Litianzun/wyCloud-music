@@ -85,7 +85,7 @@ function SingleSong(props) {
                 <span>
                   所属专辑：{songInfo.al && <a>{songInfo.al.name}</a>}
                 </span>
-                <AlbumTools style={{ marginTop: "10px", width: "400px" }} {...songInfo} />
+                <AlbumTools style={{ marginTop: "10px", width: "400px" }} {...songInfo} songs={[songInfo]} />
               </div>
             </div>
           </div>

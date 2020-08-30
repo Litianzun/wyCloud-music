@@ -5,7 +5,7 @@ import SongsTable from "../songsTable/SongsTable";
 import Comment from "../comment/Comment";
 import { reducerConnect } from "../../reducer/Reducer";
 import day from "dayjs";
-import './PlaylistMain.less'
+import "./PlaylistMain.less";
 
 const PlaylistMain = (props) => {
   return (
@@ -23,16 +23,20 @@ const PlaylistMain = (props) => {
               <a style={{ marginLeft: "12px" }}>
                 {props.creator && props.creator.nickname}
               </a>
-              <small style={{ marginLeft: "12px",marginTop: '4px' }}>
+              <small style={{ marginLeft: "12px", marginTop: "4px" }}>
                 {day(props.creator.birthday).format("YYYY-MM-DD")}创建
               </small>
             </Row>
           )}
-          <AlbumTools style={{ marginTop: "13px", width: "400px" }} {...props} />
+          <AlbumTools
+            style={{ marginTop: "13px", width: "400px" }}
+            {...props}
+            songs={props.tracks || []}
+          />
         </div>
       </div>
       <SongsTable songs={props.tracks || []} dispatch={props.dispatch} />
-      <Comment type='playlist' info={props} />
+      <Comment type="playlist" info={props} />
     </>
   );
 };

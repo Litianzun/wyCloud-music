@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Router from "./router/router";
-import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import "./pages/welcome/Welcome.less";
 import "babel-polyfill";
@@ -16,7 +15,6 @@ class App extends Component {
     return (
       <div>
         <HashRouter>
-          <Header />
           <Router />
           <Footer />
         </HashRouter>
