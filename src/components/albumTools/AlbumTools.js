@@ -25,7 +25,10 @@ const AlbumTools = (props) => {
             type: "changeSwitch",
             payload: { playSwitch: true },
           });
-          await getSong(props);
+          // await getSong(props);
+          //播放列表替换,播放第一首歌
+          localStorage.setItem('playlist',JSON.stringify(props.songs))
+          await getSong(props.songs[0])
         }}
       >
         播放

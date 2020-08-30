@@ -17,7 +17,6 @@ function Home(props) {
         type: 0,
       };
       const bannerList = await list.banner(urlPar);
-      console.log(bannerList);
       if (bannerList.code == 200) {
         setBannerList(bannerList.banners);
       }
@@ -27,14 +26,12 @@ function Home(props) {
         limit: 8,
       };
       const recommend = await list.personalized(urlPar);
-      console.log(recommend);
       if (recommend.code == 200) {
         setRecommend(recommend.result);
       }
     }
     async function getNewAlbum() {
       const newAlbum = await list.newAlbum(null);
-      console.log(newAlbum);
       if (newAlbum.code == 200) {
         setNewAlbum(newAlbum.albums.slice(0, 5));
       }
@@ -42,7 +39,6 @@ function Home(props) {
     async function getTopList() {
       try {
         const toplist = await list.toplist(null);
-        console.log(toplist);
         if (toplist.code == 200) {
           setToplist(toplist.list);
         }

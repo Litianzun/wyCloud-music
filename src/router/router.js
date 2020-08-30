@@ -1,5 +1,6 @@
 import React, { useReducer, createContext } from "react";
 import { Route, Switch } from "react-router-dom";
+import { initialState, reducer } from "../reducer/Reducer";
 import Welcome from "../pages/welcome/Welcome";
 import Home from "../pages/home/Home";
 import ListPage from "../pages/list/List";
@@ -11,30 +12,16 @@ import AlbumDetail from "../pages/albumDetail/AlbumDetail";
 import My from "../pages/my/My";
 import Playlist from "../pages/playlist/Playlist";
 import SingleSong from "../pages/singleSong/SingleSong";
+import Header from "../components/header/Header";
 
 export const reducerCtx = createContext({});
-const initialState = {
-  playSwitch: false,
-  song: {},
-  loginFlag: false,
-};
-export function reducer(state = initialState, action) {
-  switch (action.type) {
-    case "changeSwitch":
-      return Object.assign({}, state, action.payload);
-    case "setSong":
-      return Object.assign({}, state, action.payload);
-    case "login":
-      return Object.assign({}, state, action.payload);
-    default:
-      throw new Error("error");
-  }
-}
+
 export let store, dispatch;
 const Router = () => {
   [store, dispatch] = useReducer(reducer, initialState);
   return (
     <div className="web-font">
+      <Header store={store} />
       <Switch>
         <Route path="/" component={Welcome} exact />
         <Route path="/home" component={Home} />

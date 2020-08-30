@@ -82,7 +82,7 @@ function AlbumDetail(props) {
                     发行时间：{day(albumInfo.publishTime).format("YYYY-MM-DD")}
                   </span>
                   <span>发行公司：{albumInfo.company}</span>
-                  <AlbumTools style={{ marginTop: "10px", width: "400px" }} {...albumInfo.info} />
+                  <AlbumTools style={{ marginTop: "10px", width: "400px" }} {...albumInfo.info} songs={songs} />
                 </div>
               </div>
               <div className="album-content-description">

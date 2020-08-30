@@ -9,7 +9,11 @@ import { getSong } from "../../utils/getSong";
 
 const PlayMedia = (props) => {
   const [hiddenFlag, setflag] = React.useState(false);
+  const audioRef = React.useRef(null);
   let timer = null;
+  // audioRef.current.addEventListener('ended', ()=>{
+  //   console.log('ended')
+  // })
   function toHide() {
     //鼠标移开三秒之后，向下收起
     timer = setTimeout(() => {
@@ -24,11 +28,14 @@ const PlayMedia = (props) => {
   function renderPlaylist() {
     const list = localStorage.getItem("playlist");
     return (
-      <List
-        dataSource={JSON.parse(list)}
-        renderItem={renderPlaylistItem}
-        itemLayout="vertical"
-      />
+      <div style={{ height: "300px", overflowY: 'scroll' }}>
+        <List
+          dataSource={JSON.parse(list)}
+          renderItem={renderPlaylistItem}
+          itemLayout="vertical"
+          size="small"
+        />
+      </div>
     );
   }
 
@@ -75,12 +82,31 @@ const PlayMedia = (props) => {
         className="player-ico"
         style={{ backgroundImage: `url(${props.al && props.al.picUrl})` }}
       />
-      <audio src={props.url} autoPlay controls className="systemplayer">
+      <audio
+        src={props.url}
+        autoPlay
+        controls
+        className="systemplayer"
+        ref={audioRef}
+        id="audio"
+        onEnded={async () => {
+          console.log("ended");
+          let playlist = localStorage.getItem("playlist");
+          if (playlist) {
+            //如果播放列表有下一首歌，自动播放
+            let newList = playlist ? JSON.parse(playlist) : [];
+            let filterIndex = newList.findIndex((item) => item.id === props.id); //当前播放的列表index
+            if (!(newList.length === filterIndex + 1)) {
+              await getSong(newList[filterIndex + 1]);
+            }
+          }
+        }}
+      >
         您的浏览器不支持audio标签
       </audio>
       <div className="player-toolBox">
         {/* 播放列表 */}
-        <Popover content={renderPlaylist()} title="播放列表">
+        <Popover content={renderPlaylist()} title="播放列表" trigger="click">
           <UnorderedListOutlined style={{ fontSize: "15px" }} />
         </Popover>
       </div>
@@ -91,8 +117,10 @@ const PlayMedia = (props) => {
 export default reducerConnect(PlayMedia);
 
 function creatorFormat(e) {
-  const arr = e.map((item) => item.name);
-  return arr.join("/");
+  if (e) {
+    const arr = e.map((item) => item.name);
+    return arr.join("/");
+  }
 }
 
 PlayMedia.propTypes = {
