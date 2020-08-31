@@ -1,8 +1,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path')
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",
@@ -16,9 +17,16 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash:8].css",
-      chunkFilename: "[name].[contenthash:8].css"
+      chunkFilename: "[name].[contenthash:8].css",
     }),
   ],
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: [".ts", ".tsx", ".js", ".json"],
+    alias: {
+      '@': path.resolve('src')
+    }
+  },
   module: {
     rules: [
       {
@@ -31,8 +39,11 @@ module.exports = {
         },
         exclude: /node_modules/,
       },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /\.tsx?$/,
+        // loader: "awesome-typescript-loader",
+        // exclude: /node_modules/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
@@ -61,4 +72,8 @@ module.exports = {
       },
     ],
   },
+  // externals: {
+  //   react: "React",
+  //   "react-dom": "ReactDOM",
+  // },
 };

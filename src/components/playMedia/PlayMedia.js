@@ -56,9 +56,9 @@ const PlayMedia = (props) => {
     toShow();
     toHide();
     //存储到播放列表
-    let playlist = localStorage.getItem("playlist");
-    let newList = playlist ? JSON.parse(playlist) : [];
-    let filterIndex = newList.findIndex((item2) => item2.id === props.id);
+    const playlist = localStorage.getItem("playlist");
+    const newList = playlist ? JSON.parse(playlist) : [];
+    const filterIndex = newList.findIndex((item2) => item2.id === props.id);
     if (filterIndex == -1 && props.id) {
       newList.push(props);
     }
@@ -91,11 +91,11 @@ const PlayMedia = (props) => {
         id="audio"
         onEnded={async () => {
           console.log("ended");
-          let playlist = localStorage.getItem("playlist");
+          const playlist = localStorage.getItem("playlist");
           if (playlist) {
             //如果播放列表有下一首歌，自动播放
-            let newList = playlist ? JSON.parse(playlist) : [];
-            let filterIndex = newList.findIndex((item) => item.id === props.id); //当前播放的列表index
+            const newList = playlist ? JSON.parse(playlist) : [];
+            const filterIndex = newList.findIndex((item) => item.id === props.id); //当前播放的列表index
             if (!(newList.length === filterIndex + 1)) {
               await getSong(newList[filterIndex + 1]);
             }

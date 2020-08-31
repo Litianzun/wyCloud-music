@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, CSSProperties } from "react";
 import { Button } from "antd";
 import {
   PlayCircleOutlined,
@@ -13,7 +13,15 @@ import { formatCount } from "../../utils/common";
 import { reducerConnect } from "../../reducer/Reducer";
 import { getSong } from "../../utils/getSong";
 
-const AlbumTools = (props) => {
+interface AlbumToolsProps {
+  style: CSSProperties;
+  songs: object[];
+  subscribedCount?: number;
+  shareCount?: number;
+  commentCount?: number;
+  readonly dispatch: any
+}
+const AlbumTools: FC<AlbumToolsProps> = (props) => {
   return (
     <div className="albumTools-wrapper" style={props.style}>
       <Button
@@ -27,8 +35,8 @@ const AlbumTools = (props) => {
           });
           // await getSong(props);
           //播放列表替换,播放第一首歌
-          localStorage.setItem('playlist',JSON.stringify(props.songs))
-          await getSong(props.songs[0])
+          localStorage.setItem("playlist", JSON.stringify(props.songs));
+          await getSong(props.songs[0]);
         }}
       >
         播放
@@ -48,7 +56,9 @@ const AlbumTools = (props) => {
         size="small"
         icon={<MessageOutlined />}
         onClick={() => {
-          const targetElement = document.querySelector("#commentPoint");
+          const targetElement: HTMLElement = document.querySelector(
+            "#commentPoint"
+          );
           scrollTo(0, targetElement.offsetTop);
         }}
       >
