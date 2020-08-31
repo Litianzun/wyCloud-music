@@ -35,18 +35,7 @@ export function reducerConnect(WrappedComponent) {
       );
     }
   }
-  //   function Component(props) {
-  //     //创建两个核心
-  //     [store, dispatch] = useReducer(reducer, initialState);
-  //     console.log("store", store, props);
-  //     return (
-  //         <WrappedComponent
-  //           dispatch={dispatch}
-  //           {...props}
-  //           {...store}
-  //           ctx={reducerCtx}
-  //         />
-  //     );
-  //   }
   return Component;
 }
+
+
