@@ -1,13 +1,27 @@
 import React from "react";
 import { Row, Tag } from "antd";
 import AlbumTools from "../albumTools/AlbumTools";
-import SongsTable from "../songsTable/SongsTable";
+import SongsTable, { Songs } from "../songsTable/SongsTable";
 import Comment from "../comment/Comment";
 import { reducerConnect } from "../../reducer/Reducer";
 import day from "dayjs";
 import "./PlaylistMain.less";
 
-const PlaylistMain = (props) => {
+type Icreator = {
+  avatarUrl: string;
+  nickname: string;
+  birthday?: Date;
+};
+interface playlistMainProps {
+  tracks: Songs[];
+  coverImgUrl: string;
+  name: string;
+  creator: Icreator;
+  dispatch: any;
+  id: string | number;
+  commentCount: number;
+}
+const PlaylistMain = (props: playlistMainProps) => {
   return (
     <>
       <div className="my-right-playlist">

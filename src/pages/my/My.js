@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./My.less";
-import Color from "../../widget/Color";
 import list from "../../router/requestList";
-import { object } from "prop-types";
 import { getCookie } from "../../utils/getCookie";
 import PlaylistMain from "../../components/playlistMain/PlaylistMain";
 import MyArtists from "./component/MyArtists";

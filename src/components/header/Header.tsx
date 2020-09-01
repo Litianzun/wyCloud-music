@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Menu, Icon, Input } from "antd";
+import { Menu, Input } from "antd";
 import { withRouter } from "react-router-dom";
-import { reducerCtx, store, dispatch } from "../../router/router";
+import { dispatch } from "../../router/router";
 import "./Header.less";
 import list from "../../router/requestList";
 import { reducerConnect } from "../../reducer/Reducer";
@@ -10,8 +10,16 @@ import { getCookie } from "../../utils/getCookie";
 const { Search } = Input;
 /*eslint-disable */
 
-function Header(props) {
-  async function handleSearch(v) {
+type Iprofile = {
+  avatarUrl: string;
+};
+interface HeaderProps {
+  profile?: Iprofile;
+  location: any;
+  history: any;
+}
+const Header: React.FC<HeaderProps> = (props) => {
+  async function handleSearch(v: string) {
     window.location.href = `/#/searchlist?s=${v}`;
   }
   let path = props.location.pathname;
@@ -23,7 +31,7 @@ function Header(props) {
       getUserDetail(userId);
     }
   }, []);
-  async function getUserDetail(id) {
+  async function getUserDetail(id: string | number) {
     const loginRes = await list.getUserDetail({ uid: id });
     if (loginRes.code === 200) {
       dispatch({
@@ -47,7 +55,7 @@ function Header(props) {
       <Menu
         selectedKeys={[_current]}
         mode="horizontal"
-        onClick={(e) => {
+        onClick={(e: any) => {
           props.history.push(`/${e.key}`);
         }}
         className="menuBox"
@@ -62,7 +70,7 @@ function Header(props) {
           <div className="menuBox-item-div">朋友</div>
         </Menu.Item>
         <Menu.Item key="contact" className="menuBox-item">
-          <Icon type="contacts" theme="twoTone" />
+          {/* <Icon type="contacts" theme="twoTone" /> */}
           <div className="menuBox-item-div">联系我们</div>
         </Menu.Item>
       </Menu>
@@ -92,6 +100,6 @@ function Header(props) {
       </div>
     </nav>
   );
-}
+};
 
 export default reducerConnect(withRouter(Header));

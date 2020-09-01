@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import PlaylistMain from "../../components/playlistMain/PlaylistMain";
 import { List, Divider } from "antd";
 import list from "../../router/requestList";
-import day from "dayjs";
 import "./Playlist.less";
+import { object } from "prop-types";
 
 function Playlist(props) {
   const [playlistDetail, setPlaylistDetail] = useState(null);
@@ -80,3 +80,9 @@ function Playlist(props) {
 }
 
 export default Playlist;
+
+Playlist.propTypes = {
+  match: object,
+  location: object,
+  history: object
+}

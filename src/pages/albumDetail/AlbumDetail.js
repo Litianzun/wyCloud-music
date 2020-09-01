@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Tag, Table, Row, Divider, List, Typography } from "antd";
+import React, { useState, useEffect } from "react";
+import { Tag, Row, Divider, List, Typography } from "antd";
 import "./AlbumDetail.less";
 import list from "../../router/requestList";
 import day from "dayjs";
 import Color from "../../widget/Color";
 import AlbumTools from "../../components/albumTools/AlbumTools";
 import Comment from "../../components/comment/Comment";
-import { object } from "prop-types";
+import { object, any } from "prop-types";
 import { reducerConnect } from "../../reducer/Reducer";
 import SongsTable from '../../components/songsTable/SongsTable'
 
@@ -58,7 +58,6 @@ function AlbumDetail(props) {
     );
   }
   return (
-    // <reducerCtx.Provider value={{ store, dispatch: props.dispatch }}>
       <div style={{ backgroundColor: "#eee" }}>
         <div className="album-detail-wrapper">
           <section className="album-detail-wrapper-leftBox">
@@ -114,7 +113,6 @@ function AlbumDetail(props) {
           </section>
         </div>
       </div>
-    // </reducerCtx.Provider>
   );
 }
 
@@ -124,6 +122,7 @@ AlbumDetail.propTypes = {
   match: object,
   location: object,
   history: object,
+  dispatch: any
 };
 
 function formatArtist(text) {

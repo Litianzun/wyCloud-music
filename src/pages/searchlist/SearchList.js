@@ -58,9 +58,7 @@ const SearchList = (props) => {
       title: "歌手",
       dataIndex: "artists",
       key: "artist",
-      render: (text, record) => (
-        <a>{text.map((item) => item.name).join("/")}</a>
-      ), //eslint-disable-line
+      render: (text) => <a>{text.map((item) => item.name).join("/")}</a>, //eslint-disable-line
     },
     {
       title: "专辑",
