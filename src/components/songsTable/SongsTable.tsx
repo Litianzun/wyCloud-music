@@ -3,15 +3,22 @@ import { Table, Row } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { getSong } from "../../utils/getSong";
 import day from "dayjs";
+import { ColumnsType } from "antd/es/table";
 
-function SongsTable({ songs, ...rests }) {
-  const columns = [
+export interface Songs {
+  key: number | string;
+  name: string;
+  dt: Date | number;
+  ar: { name: string }[];
+}
+function SongsTable({ songs, ...rests }: { songs: Songs[]; dispatch?: any }) {
+  const columns: ColumnsType<Songs> = [
     {
       title: "",
       key: "id",
       /*eslint-disable */
-      render: (text, record, index) => (
-        <Row align="middle" justify='space-between'>
+      render: (text: any, record: Songs, index: number) => (
+        <Row align="middle" justify="space-between">
           <small>{index + 1}</small>
           <PlayCircleOutlined
             className="album-columns-icon"
@@ -36,13 +43,13 @@ function SongsTable({ songs, ...rests }) {
     {
       title: "时长",
       dataIndex: "dt",
-      render: (text) => <span>{day(text).format("mm:ss")}</span>, //eslint-disable-line
+      render: (text: Songs["dt"]) => <span>{day(text).format("mm:ss")}</span>, //eslint-disable-line
     },
     {
       title: "歌手",
       dataIndex: "ar",
       /*eslint-disable */
-      render: (text) => {
+      render: (text: Songs["ar"]) => {
         return <span>{formatArtist(text)}</span>;
         /*eslint-enable */
       },
@@ -65,7 +72,7 @@ function SongsTable({ songs, ...rests }) {
 
 export default SongsTable;
 
-function formatArtist(text) {
+function formatArtist(text: { name: string }[]) {
   const names = text.map((item) => item.name);
   return names.join(",");
 }

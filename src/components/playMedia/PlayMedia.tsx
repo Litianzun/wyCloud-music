@@ -7,13 +7,21 @@ import { string, array, object } from "prop-types";
 import { reducerConnect } from "../../reducer/Reducer";
 import { getSong } from "../../utils/getSong";
 
-const PlayMedia = (props) => {
+interface playlistItemProps {
+  id?: string;
+  name?: string;
+  ar?: [];
+  artists? : []
+}
+interface playMediaProps extends playlistItemProps{
+  al?: { picUrl: string };
+  url?: string;
+}
+
+const PlayMedia: React.FC<playMediaProps> = (props) => {
   const [hiddenFlag, setflag] = React.useState(false);
   const audioRef = React.useRef(null);
-  let timer = null;
-  // audioRef.current.addEventListener('ended', ()=>{
-  //   console.log('ended')
-  // })
+  let timer: NodeJS.Timeout = null;
   function toHide() {
     //鼠标移开三秒之后，向下收起
     timer = setTimeout(() => {
@@ -28,7 +36,7 @@ const PlayMedia = (props) => {
   function renderPlaylist() {
     const list = localStorage.getItem("playlist");
     return (
-      <div style={{ height: "300px", overflowY: 'scroll' }}>
+      <div style={{ height: "300px", overflowY: "scroll" }}>
         <List
           dataSource={JSON.parse(list)}
           renderItem={renderPlaylistItem}
@@ -39,7 +47,7 @@ const PlayMedia = (props) => {
     );
   }
 
-  function renderPlaylistItem(item) {
+  function renderPlaylistItem(item: playlistItemProps) {
     return (
       <List.Item
         onDoubleClick={async () => {
@@ -58,7 +66,9 @@ const PlayMedia = (props) => {
     //存储到播放列表
     const playlist = localStorage.getItem("playlist");
     const newList = playlist ? JSON.parse(playlist) : [];
-    const filterIndex = newList.findIndex((item2) => item2.id === props.id);
+    const filterIndex = newList.findIndex(
+      (item2: { id: string }) => item2.id === props.id
+    );
     if (filterIndex == -1 && props.id) {
       newList.push(props);
     }
@@ -95,7 +105,9 @@ const PlayMedia = (props) => {
           if (playlist) {
             //如果播放列表有下一首歌，自动播放
             const newList = playlist ? JSON.parse(playlist) : [];
-            const filterIndex = newList.findIndex((item) => item.id === props.id); //当前播放的列表index
+            const filterIndex = newList.findIndex(
+              (item: { id: string }) => item.id === props.id
+            ); //当前播放的列表index
             if (!(newList.length === filterIndex + 1)) {
               await getSong(newList[filterIndex + 1]);
             }
@@ -116,16 +128,16 @@ const PlayMedia = (props) => {
 
 export default reducerConnect(PlayMedia);
 
-function creatorFormat(e) {
+function creatorFormat(e: { name: string }[]) {
   if (e) {
     const arr = e.map((item) => item.name);
     return arr.join("/");
   }
 }
 
-PlayMedia.propTypes = {
-  name: string,
-  ar: array,
-  url: string,
-  al: object,
-};
+// PlayMedia.propTypes = {
+//   name: string,
+//   ar: array,
+//   url: string,
+//   al: object,
+// };

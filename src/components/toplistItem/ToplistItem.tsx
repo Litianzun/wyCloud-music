@@ -6,7 +6,14 @@ import ToplistItemTool from "./ToplistItemTool";
 import { number, oneOfType, string } from "prop-types";
 import { Link } from "react-router-dom";
 
-const ToplistItem = (props) => {
+interface toplistItemProps {
+  id: string | number;
+  name: string;
+  coverImgUrl?: string;
+  description?: string;
+  isActive?: boolean;
+}
+const ToplistItem: React.FC<toplistItemProps> = (props) => {
   const [detail, setDetail] = React.useState([]);
   const [ignored, forceUpdate] = React.useReducer((x) => x + 1, 0); //eslint-disable-line
   React.useEffect(() => {
@@ -21,7 +28,7 @@ const ToplistItem = (props) => {
     }
     getDetail();
   }, []);
-  function mouseOver(i) {
+  function mouseOver(i: number) {
     const newdetail = detail;
     newdetail.forEach((item, index) => {
       item.isActive = false;
@@ -32,9 +39,9 @@ const ToplistItem = (props) => {
     setDetail(newdetail);
     forceUpdate();
   }
-  function mouseOut(i) {
+  function mouseOut(i: string | number) {
     const newdetail = detail;
-    newdetail[i].isActive = false;
+    newdetail[i as number].isActive = false;
     setDetail(newdetail);
     forceUpdate();
   }
@@ -52,7 +59,7 @@ const ToplistItem = (props) => {
         </div>
       }
       dataSource={detail}
-      renderItem={(item, index) => {
+      renderItem={(item: toplistItemProps, index: number) => {
         return (
           <List.Item className="toplist-item">
             <Link to={`/song/${item.id}`}>

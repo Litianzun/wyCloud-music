@@ -2,6 +2,7 @@ import React from "react";
 import { Tag, Row } from "antd";
 import SectionTitle from "../../../components/sectionTitle/SectionTitle";
 import day from "dayjs";
+import { object, array } from "prop-types";
 
 const MyMv = (props) => {
   function _renderItem(item) {
@@ -41,4 +42,9 @@ export default MyMv;
 function creatorFormat(e) {
   const arr = e.map((item) => item.userName);
   return arr.join("/");
+}
+
+MyMv.propTypes = {
+  history: object,
+  data: array
 }

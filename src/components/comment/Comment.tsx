@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, FC } from "react";
 import { Divider, List } from "antd";
 import { LikeOutlined } from "@ant-design/icons";
 import list from "../../router/requestList";
@@ -7,12 +7,26 @@ import "./Comment.less";
 import day from "dayjs";
 import { object, string } from "prop-types";
 
+type Iinfo = {
+  id: string | number;
+  commentCount: number;
+};
+type IrenderItem = {
+  content: string;
+  user: any;
+  time: Date;
+  likedCount: number;
+};
+interface CommentProps {
+  info: Iinfo;
+  type: "mv" | "album" | "playlist" | "song";
+}
 let offset = 0;
-const Comment = ({ info, type }) => {
+const Comment: FC<CommentProps> = ({ info, type }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hotComment, setHotComment] = useState([]);
   const [allComment, setComment] = useState([]);
-  const [songTotal, setSongTotal] = useState(0)
+  const [songTotal, setSongTotal] = useState(0);
   async function getComment() {
     let comment = null;
     switch (type) {
@@ -54,8 +68,8 @@ const Comment = ({ info, type }) => {
         setHotComment(comment.hotComments);
       }
       setComment(comment.comments);
-      if(type === 'song') {
-        setSongTotal(comment.total)
+      if (type === "song") {
+        setSongTotal(comment.total);
       }
     }
   }
@@ -64,7 +78,7 @@ const Comment = ({ info, type }) => {
       getComment();
     }
   }, [info]);
-  function _renderItem(item) {
+  function _renderItem(item: IrenderItem) {
     return (
       <List.Item className="commentBox">
         <img src={item.user.avatarUrl} alt="comment" />
@@ -90,9 +104,9 @@ const Comment = ({ info, type }) => {
   }
   return (
     <Fragment>
-      <div className="mv-separator" id='commentPoint' name='commentPoint'>
+      <div className="mv-separator" id="commentPoint">
         <b>评论</b>
-        <span>共{type !== 'song' ? info.commentCount : songTotal}条评论</span>
+        <span>共{type !== "song" ? info.commentCount : songTotal}条评论</span>
       </div>
       <section className="mv-comment">
         {hotComment.length > 0 && (
@@ -112,12 +126,12 @@ const Comment = ({ info, type }) => {
           style={{ width: "890px" }}
           pagination={{
             pageSize: 20,
-            total: type !== 'song' ? info.commentCount : songTotal,
+            total: type !== "song" ? info.commentCount : songTotal,
             current: currentPage,
             defaultCurrent: 1,
             showSizeChanger: false,
             showQuickJumper: true,
-            onChange: (page, pageSize) => {
+            onChange: (page: number, pageSize: number) => {
               offset = (page - 1) * pageSize;
               setCurrentPage(page);
               getComment();
@@ -131,7 +145,7 @@ const Comment = ({ info, type }) => {
 
 export default Comment;
 
-Comment.propTypes = {
-  info: object,
-  type: string,
-};
+// Comment.propTypes = {
+//   info: object,
+//   type: string,
+// };

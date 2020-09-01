@@ -1,6 +1,7 @@
 import React from "react";
 import { List } from "antd";
 import SectionTitle from "../../../components/sectionTitle/SectionTitle";
+import { array } from "prop-types";
 
 const MyArtists = (props) => {
   function _renderItem(item) {
@@ -28,3 +29,7 @@ const MyArtists = (props) => {
 };
 
 export default MyArtists;
+
+MyArtists.propTypes = {
+  data: array
+}

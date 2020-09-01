@@ -2,15 +2,18 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
+    "module": "ESNext",
+    "target": "ES5",
     "jsx": "react",
     "allowJs": true,
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",//所有的模块来源于node_modules，不可少
+    "resolveJsonModule": true,//支持json文件的导出导入
     "paths": {
       "@/*": [
-        "./*"
+        "src/*"
       ]
    }
   },

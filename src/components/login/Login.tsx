@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, FC } from "react";
 import { Modal, Input, Button, Checkbox, Row, message } from "antd";
 import { dispatch } from "../../router/router";
 import { reducerConnect } from "../../reducer/Reducer";
 import "./Login.less";
 import list from "../../router/requestList";
 import { bool } from "prop-types";
-import { setCookie, getCookie } from "../../utils/getCookie";
+import { setCookie } from "../../utils/getCookie";
 
-const Login = (props) => {
+interface LoginProps {
+  visible: boolean;
+}
+const Login: FC<LoginProps> = (props) => {
   const [loginType, setLoginType] = useState("default"); //登录方式
   const [termsFlag, setTermsFlag] = useState(false); //服务条款
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  async function getUserDetail(id) {
+  async function getUserDetail(id: string | number) {
     const loginRes = await list.getUserDetail({ uid: id });
     console.log(loginRes);
     if (loginRes.code === 200) {
@@ -46,7 +49,10 @@ const Login = (props) => {
     }
   }
 
-  async function cacheLoginInfo(res) {
+  async function cacheLoginInfo(res: {
+    cookie: string;
+    profile: { userId: string | number };
+  }) {
     //存储cookie及账号信息
     document.cookie = res.cookie;
     setCookie("userId", res.profile.userId, 15);
@@ -97,7 +103,7 @@ const Login = (props) => {
       <Button type="ghost">注册</Button>
       <Row align="middle">
         <Checkbox
-          onChange={(e) => setTermsFlag(e.target.checked)}
+          onChange={(e: any) => setTermsFlag(e.target.checked)}
           checked={termsFlag}
         />
         <small style={{ marginLeft: "5px" }}>
@@ -132,7 +138,9 @@ const Login = (props) => {
           placeholder="请输入手机号"
           className="login-input"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+            setPhone(e.target.value)
+          }
         />
       </Row>
       <Row className="login-row">
@@ -140,7 +148,9 @@ const Login = (props) => {
           placeholder="请输入密码"
           className="login-input"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+            setPassword(e.target.value)
+          }
         />
       </Row>
       <Row justify="space-between" className="login-row">
@@ -161,7 +171,9 @@ const Login = (props) => {
           placeholder="请输入账号"
           className="login-input"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+            setEmail(e.target.value)
+          }
         />
       </Row>
       <Row className="login-row">
@@ -169,7 +181,9 @@ const Login = (props) => {
           placeholder="请输入密码"
           className="login-input"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+            setPassword(e.target.value)
+          }
         />
       </Row>
       <Row justify="space-between" className="login-row">
@@ -182,7 +196,7 @@ const Login = (props) => {
     </div>
   );
 
-  const renderMain = (type) => {
+  const renderMain = (type: string) => {
     switch (type) {
       case "default":
         return renderDefault();
@@ -234,7 +248,7 @@ Login.propTypes = {
   visible: bool,
 };
 
-function renderTitle(type) {
+function renderTitle(type: string) {
   switch (type) {
     case "default":
       return "登录";

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Tag, Row, Divider, List, Typography, Space } from "antd";
+import { Tag, Row, Divider, List, Space } from "antd";
 import "./SingleSong.less";
 import list from "../../router/requestList";
-import day from "dayjs";
 import Color from "../../widget/Color";
 import AlbumTools from "../../components/albumTools/AlbumTools";
 import Comment from "../../components/comment/Comment";
-import { object } from "prop-types";
+import { object, any } from "prop-types";
 import { reducerConnect } from "../../reducer/Reducer";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { getSong } from "../../utils/getSong";
@@ -14,7 +13,7 @@ import { getSong } from "../../utils/getSong";
 function SingleSong(props) {
   const targetId = props.match.params.id;
   const [relatedSongs, setRelatedSongs] = useState([]);
-  const [expandFlag, setExpandFlag] = useState(true);
+  // const [expandFlag, setExpandFlag] = useState(true);
   const [songInfo, setSongInfo] = useState({});
   async function getSongDetail() {
     const detail = await list.getSongDetail({ ids: targetId });
@@ -64,7 +63,6 @@ function SingleSong(props) {
     );
   }
   return (
-    // <reducerCtx.Provider value={{ store, dispatch: props.dispatch }}>
     <div style={{ backgroundColor: "#eee" }}>
       <div className="album-detail-wrapper">
         <section className="album-detail-wrapper-leftBox">
@@ -101,7 +99,6 @@ function SingleSong(props) {
         </section>
       </div>
     </div>
-    // </reducerCtx.Provider>
   );
 }
 
@@ -111,6 +108,7 @@ SingleSong.propTypes = {
   match: object,
   location: object,
   history: object,
+  dispatch: any
 };
 
 function formatArtist(text) {

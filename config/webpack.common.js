@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require('path')
+const { CheckerPlugin } = require("awesome-typescript-loader");
+const tsImportPluginFactory = require("ts-import-plugin");
+const path = require("path");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -19,18 +21,21 @@ module.exports = {
       filename: "[name].[contenthash:8].css",
       chunkFilename: "[name].[contenthash:8].css",
     }),
+    new CheckerPlugin(),
   ],
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js", ".json"],
     alias: {
-      '@': path.resolve('src')
-    }
+      "@": path.resolve("src"),
+    },
   },
   module: {
     rules: [
       {
         test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre",
         use: {
           loader: "babel-loader",
           options: {
@@ -39,12 +44,20 @@ module.exports = {
         },
         exclude: /node_modules/,
       },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+      // { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /\.tsx?$/,
-        // loader: "awesome-typescript-loader",
-        // exclude: /node_modules/,
-        use: "ts-loader",
+        loader: "awesome-typescript-loader",
+        // use: "ts-loader",
+        options: {
+          getCustomTransformers: () => ({
+            before: [tsImportPluginFactory({
+              libraryName: 'antd',
+              libraryDirectory: 'lib',
+              style: "css"
+            })],
+          }),
+        },
         exclude: /node_modules/,
       },
       {
