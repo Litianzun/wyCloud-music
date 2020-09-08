@@ -33,39 +33,37 @@
   .friends-right {
     width: 290px;
     border-left: 1px solid #eee;
-    padding: 0 20px;
-    span {
-      font-size: 13px;
-    }
-    .relevant-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      height: 66px;
-      margin: 5px 0;
-      img {
-        width: 100px;
-        height: 64px;
-      }
-      .relevant-wrapper-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding: 0 12px;
-        small {
-          color: #999999;
-          font-size: 12px;
+    .accountBox {
+      background-color: #eee;
+      height: 200px;
+      padding: 22px 12px;
+      .myInfo{
+        width: 100%;
+        height: 80px;
+        >img {
+          width: 80px;
+          height: 80px;
+          border-radius: 5px;
         }
-        .relevant-wrapper-content-titleBox {
-          width: 100%;
+        strong {
+          font-size: 14px;
+          margin-left: 12px;
+        }
+      }
+      .accountBox-data{
+        width: 100%;
+        background-color: #eee;
+        margin-top: 20px;
+        display: flex;
+        .accountBox-data-item {
+          flex: 1;
+          height: 60px;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          .relevant-wrapper-content-title {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            width: 88px;
-            overflow: hidden;
+          justify-content: space-between;
+          span {
+            font-size: 20px;
           }
         }
       }

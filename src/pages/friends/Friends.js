@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, Avatar, Typography } from "antd";
+import { List, Avatar } from "antd";
 import "./Friends.less";
 import { getCookie } from "../../utils/getCookie";
 import list from "../../router/requestList";
@@ -8,12 +8,12 @@ import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import day from "dayjs";
 import Color from "../../widget/Color";
 import transformJson from "../../utils/transformJson";
+import { reducerConnect } from "@/reducer/Reducer";
 
-const { Title, Paragraph } = Typography;
 function Friends(props) {
   const [data, setData] = React.useState([]);
   let [videoActiveIndex, setVideoIndex] = React.useState(-1);
-  let [videoUrl,setVideoUrl] = React.useState([])
+  let [videoUrl, setVideoUrl] = React.useState([]);
   async function getData() {
     const params = {
       pageSize: 20,
@@ -27,9 +27,10 @@ function Friends(props) {
   React.useEffect(() => {
     getData();
   }, []);
-  function _renderItem(item,index) {
+  console.log(props.profile)
+  function _renderItem(item, index) {
     return (
-      <List.Item key={item.id} className='friends-itemBox'>
+      <List.Item key={item.id} className="friends-itemBox">
         <div className="friends-itemBox-top">
           <Avatar src={item.user.avatarUrl} />
           <div className="friends-itemBox-info">
@@ -39,10 +40,18 @@ function Friends(props) {
             </small>
           </div>
         </div>
-        <pre>{transformJson(item,index,{videoActiveIndex,setVideoIndex,videoUrl,setVideoUrl})}</pre>
+        <pre>
+          {transformJson(item, index, {
+            videoActiveIndex,
+            setVideoIndex,
+            videoUrl,
+            setVideoUrl,
+          })}
+        </pre>
       </List.Item>
     );
   }
+  
   return (
     <div style={{ backgroundColor: "#eee" }}>
       {getCookie("userId") ? (
@@ -53,7 +62,28 @@ function Friends(props) {
               <List dataSource={data} renderItem={_renderItem} />
             </div>
           </section>
-          <section className="friends-right"></section>
+          <section className="friends-right">
+            <div className="accountBox">
+              <div className='myInfo'>
+                <img src={props.profile && props.profile.avatarUrl} />
+                <strong>{props.profile ? props.profile.nickname : '-'}</strong>
+              </div>
+              <div className="accountBox-data">
+                <div className="accountBox-data-item">
+                  <span>{0}</span>
+                  <small>动态</small>
+                </div>
+                <div className="accountBox-data-item">
+                  <span>{6}</span>
+                  <small>关注</small>
+                </div>
+                <div className="accountBox-data-item">
+                  <span>{2}</span>
+                  <small>粉丝</small>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       ) : (
         <EmptyLogin />
@@ -62,4 +92,4 @@ function Friends(props) {
   );
 }
 
-export default Friends;
+export default reducerConnect(Friends);
