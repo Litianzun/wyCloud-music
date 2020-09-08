@@ -1,11 +1,17 @@
 import * as React from "react";
-import { Menu, Input } from "antd";
-import { withRouter } from "react-router-dom";
+import { Menu, Input, Dropdown, Badge } from "antd";
+import { withRouter, Link } from "react-router-dom";
+import {
+  SettingOutlined,
+  UserOutlined,
+  MessageOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { dispatch } from "../../router/router";
 import "./Header.less";
 import list from "../../router/requestList";
 import { reducerConnect } from "../../reducer/Reducer";
-import { getCookie } from "../../utils/getCookie";
+import { getCookie, delCookie } from "../../utils/getCookie";
 
 const { Search } = Input;
 /*eslint-disable */
@@ -25,6 +31,39 @@ const Header: React.FC<HeaderProps> = (props) => {
   let path = props.location.pathname;
   let _current = path.substring(1);
   const { profile } = props;
+  const menu = (
+    <Menu theme="dark">
+      <Menu.Item icon={<UserOutlined />}>
+        <Link to={`/user/home/${getCookie("userId")}`}>我的主页</Link>
+      </Menu.Item>
+      <Menu.Item icon={<MessageOutlined />}>
+        <Badge count={5} size='small'>
+        <Link to="/msg/m/private">我的消息</Link>
+        </Badge>
+      </Menu.Item>
+      <Menu.Item icon={<SettingOutlined />}>
+        <Link to="/user/update">个人设置</Link>
+      </Menu.Item>
+      <Menu.Item icon={<LogoutOutlined />}>
+        <a
+          onClick={() => {
+            delCookie("userId");
+            delCookie("_remember_me");
+            delCookie("_csrf");
+            delCookie("MUSIC_U");
+            dispatch({
+              type: "setAccount",
+              payload: {
+                profile: null,
+              },
+            });
+          }}
+        >
+          退出
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
   React.useEffect(() => {
     const userId = getCookie("userId");
     if (!profile && userId) {
@@ -56,7 +95,14 @@ const Header: React.FC<HeaderProps> = (props) => {
         selectedKeys={[_current]}
         mode="horizontal"
         onClick={(e: any) => {
-          props.history.push(`/${e.key}`);
+          const externalLinks = ["mall", "musician"];
+          if (!externalLinks.includes(e.key)) {
+            props.history.push(`/${e.key}`);
+          } else if (e.key === "mall") {
+            window.open("https://music.163.com/store/product");
+          } else if (e.key === "musician") {
+            window.open("https://music.163.com/nmusician/web/index#/");
+          }
         }}
         className="menuBox"
       >
@@ -66,12 +112,14 @@ const Header: React.FC<HeaderProps> = (props) => {
         <Menu.Item key="my" className="menuBox-item">
           <div className="menuBox-item-div">我的音乐</div>
         </Menu.Item>
-        <Menu.Item key="other" className="menuBox-item">
+        <Menu.Item key="friends" className="menuBox-item">
           <div className="menuBox-item-div">朋友</div>
         </Menu.Item>
-        <Menu.Item key="contact" className="menuBox-item">
-          {/* <Icon type="contacts" theme="twoTone" /> */}
-          <div className="menuBox-item-div">联系我们</div>
+        <Menu.Item key="mall" className="menuBox-item">
+          <div className="menuBox-item-div">商城</div>
+        </Menu.Item>
+        <Menu.Item key="musician" className="menuBox-item">
+          <div className="menuBox-item-div">音乐人</div>
         </Menu.Item>
       </Menu>
       <div className="headerRight">
@@ -95,7 +143,9 @@ const Header: React.FC<HeaderProps> = (props) => {
             登录
           </a>
         ) : (
-          <img src={profile.avatarUrl} alt="avatar" className="user-avatar" />
+          <Dropdown overlay={menu} placement="bottomCenter">
+            <img src={profile.avatarUrl} alt="avatar" className="user-avatar" />
+          </Dropdown>
         )}
       </div>
     </nav>

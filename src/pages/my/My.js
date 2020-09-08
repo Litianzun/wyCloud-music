@@ -5,6 +5,7 @@ import { getCookie } from "../../utils/getCookie";
 import PlaylistMain from "../../components/playlistMain/PlaylistMain";
 import MyArtists from "./component/MyArtists";
 import MyMv from "./component/MyMV";
+import EmptyLogin from "@/components/emptyLogin/EmptyLogin";
 
 function My(props) {
   const [myArtists, setMyArtists] = useState([]);
@@ -69,37 +70,45 @@ function My(props) {
     }
   }
   useEffect(() => {
-    getMyArtists();
-    getMyMv();
-    getMyPlaylist();
-  }, []);
+    if (getCookie("userId")) {
+      getMyArtists();
+      getMyMv();
+      getMyPlaylist();
+    }
+  }, [getCookie("userId")]);
   return (
     <div style={{ backgroundColor: "#eee" }}>
-      <div className="myWrapper">
-        <section className="my-left">
-          <ul>
-            <li onClick={() => setType("artist")}>
-              我的歌手({myArtists.length || 0})
-            </li>
-            <li onClick={() => setType("mv")}>我的视频({myMv.length || 0})</li>
-            <li>我的歌单({myPlaylist.length || 0})</li>
-          </ul>
-          {myPlaylist.map((item) => (
-            <div
-              className="render-playlist-item"
-              key={item.id}
-              onClick={() => getPlaylistDetail(item.id)}
-            >
-              <img src={item.coverImgUrl} alt="my-playlist" />
-              <div className="render-playlist-item-main">
-                <span>{item.name}</span>
-                <small>{item.trackCount}首</small>
+      {getCookie("userId") ? (
+        <div className="myWrapper">
+          <section className="my-left">
+            <ul>
+              <li onClick={() => setType("artist")}>
+                我的歌手({myArtists.length || 0})
+              </li>
+              <li onClick={() => setType("mv")}>
+                我的视频({myMv.length || 0})
+              </li>
+              <li>我的歌单({myPlaylist.length || 0})</li>
+            </ul>
+            {myPlaylist.map((item) => (
+              <div
+                className="render-playlist-item"
+                key={item.id}
+                onClick={() => getPlaylistDetail(item.id)}
+              >
+                <img src={item.coverImgUrl} alt="my-playlist" />
+                <div className="render-playlist-item-main">
+                  <span>{item.name}</span>
+                  <small>{item.trackCount}首</small>
+                </div>
               </div>
-            </div>
-          ))}
-        </section>
-        <section className="my-right">{renderMain(type)}</section>
-      </div>
+            ))}
+          </section>
+          <section className="my-right">{renderMain(type)}</section>
+        </div>
+      ) : (
+        <EmptyLogin />
+      )}
     </div>
   );
 }
