@@ -13,6 +13,7 @@ import My from "../pages/my/My";
 import Playlist from "../pages/playlist/Playlist";
 import SingleSong from "../pages/singleSong/SingleSong";
 import Header from "../components/header/Header";
+import Friends from '../pages/friends/Friends'
 
 export const reducerCtx = createContext({});
 
@@ -32,6 +33,7 @@ const Router = () => {
         <Route path="/my" component={My} />
         <Route path="/playlist/:id" component={Playlist} />
         <Route path="/song/:id" component={SingleSong} />
+        <Route path='/friends' component={Friends} />
       </Switch>
       {store.playSwitch && <PlayMedia {...store.song} />}
       {<Login visible={store.loginFlag} />}

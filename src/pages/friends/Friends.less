@@ -1,0 +1,74 @@
+.friendsWrapper {
+  width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: white;
+  display: flex;
+  padding-bottom: 20px;
+  .friends-left {
+    width: 910px;
+    .friends-left-main {
+      padding: 0 12px;
+      .friends-itemBox {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .friends-itemBox-top {
+          display: flex;
+          align-items: center;
+          .friends-itemBox-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+          }
+        }
+        pre {
+          margin-top: 10px;
+          white-space: pre-wrap;
+        }
+      }
+    }
+  }
+  .friends-right {
+    width: 290px;
+    border-left: 1px solid #eee;
+    padding: 0 20px;
+    span {
+      font-size: 13px;
+    }
+    .relevant-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 66px;
+      margin: 5px 0;
+      img {
+        width: 100px;
+        height: 64px;
+      }
+      .relevant-wrapper-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 12px;
+        small {
+          color: #999999;
+          font-size: 12px;
+        }
+        .relevant-wrapper-content-titleBox {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          .relevant-wrapper-content-title {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 88px;
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
+}

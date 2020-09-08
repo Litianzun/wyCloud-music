@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const tsImportPluginFactory = require("ts-import-plugin");
+const WebpackBar = require("webpackbar");
 const path = require("path");
 
 module.exports = {
@@ -22,6 +23,21 @@ module.exports = {
       chunkFilename: "[name].[contenthash:8].css",
     }),
     new CheckerPlugin(),
+    new WebpackBar({
+      reporter: {
+        start(context) {
+          console.log("🚗🚗开始编译——————————————");
+        },
+        progress(context) {
+          if (context.state.hasErrors) {
+            console.log("😭😭编译中发生了错误～～～");
+          }
+        },
+        done(context) {
+          console.log("🎁🎁编译完毕！！！");
+        },
+      },
+    }),
   ],
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
@@ -51,11 +67,13 @@ module.exports = {
         // use: "ts-loader",
         options: {
           getCustomTransformers: () => ({
-            before: [tsImportPluginFactory({
-              libraryName: 'antd',
-              libraryDirectory: 'lib',
-              style: "css"
-            })],
+            before: [
+              tsImportPluginFactory({
+                libraryName: "antd",
+                libraryDirectory: "lib",
+                style: "css",
+              }),
+            ],
           }),
         },
         exclude: /node_modules/,

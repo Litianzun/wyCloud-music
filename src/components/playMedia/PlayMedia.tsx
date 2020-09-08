@@ -3,7 +3,6 @@ import { UnorderedListOutlined } from "@ant-design/icons";
 import { Popover, List } from "antd";
 import "./PlayMedia.less";
 import Color from "../../widget/Color";
-import { string, array, object } from "prop-types";
 import { reducerConnect } from "../../reducer/Reducer";
 import { getSong } from "../../utils/getSong";
 
@@ -11,9 +10,9 @@ interface playlistItemProps {
   id?: string;
   name?: string;
   ar?: [];
-  artists? : []
+  artists?: [];
 }
-interface playMediaProps extends playlistItemProps{
+interface playMediaProps extends playlistItemProps {
   al?: { picUrl: string };
   url?: string;
 }
@@ -21,6 +20,7 @@ interface playMediaProps extends playlistItemProps{
 const PlayMedia: React.FC<playMediaProps> = (props) => {
   const [hiddenFlag, setflag] = React.useState(false);
   const audioRef = React.useRef(null);
+  const [playState, setPlayState] = React.useState(false); //播放状态
   let timer: NodeJS.Timeout = null;
   function toHide() {
     //鼠标移开三秒之后，向下收起
@@ -90,7 +90,10 @@ const PlayMedia: React.FC<playMediaProps> = (props) => {
       </div>
       <div
         className="player-ico"
-        style={{ backgroundImage: `url(${props.al && props.al.picUrl})` }}
+        style={{
+          backgroundImage: `url(${props.al && props.al.picUrl})`,
+          animationPlayState: playState ? "running" : "paused",
+        }}
       />
       <audio
         src={props.url}
@@ -99,8 +102,13 @@ const PlayMedia: React.FC<playMediaProps> = (props) => {
         className="systemplayer"
         ref={audioRef}
         id="audio"
+        onPause={() => {
+          setPlayState(false);
+        }}
+        onPlay={() => {
+          setPlayState(true);
+        }}
         onEnded={async () => {
-          console.log("ended");
           const playlist = localStorage.getItem("playlist");
           if (playlist) {
             //如果播放列表有下一首歌，自动播放
@@ -134,10 +142,3 @@ function creatorFormat(e: { name: string }[]) {
     return arr.join("/");
   }
 }
-
-// PlayMedia.propTypes = {
-//   name: string,
-//   ar: array,
-//   url: string,
-//   al: object,
-// };

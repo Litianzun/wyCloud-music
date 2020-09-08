@@ -1,6 +1,7 @@
 const common = require("./webpack.common");
 const merge = require("webpack-merge");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
@@ -27,14 +28,16 @@ module.exports = merge(common, {
         },
       },
     },
+    minimize: true,
+    minimizer: [new TerserPlugin()]
     // minimizer: [new UglifyJsPlugin()]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new BundleAnalyzerPlugin(),
-    new UglifyJsPlugin({
-      sourceMap: true,
-    }),
+    // new UglifyJsPlugin({
+    //   sourceMap: true,
+    // }),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production"),
     }),

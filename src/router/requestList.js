@@ -128,7 +128,15 @@ const list = {
   /**
    * 相似歌曲
    */
-  getSimiSongs: urlPar => request( 'get', '/simi/song', { params: urlPar })
+  getSimiSongs: urlPar => request('get', '/simi/song', { params: urlPar }),
+  /**
+   * 动态消息
+   */
+  getEvent: urlPar => request('get', '/event', { params: urlPar }),
+  /**
+   * 获取视频播放地址
+   */
+  getVideo: urlPar => request('get', '/video/url', { params: urlPar })
 };
 
 export default list;

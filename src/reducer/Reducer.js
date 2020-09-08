@@ -5,7 +5,7 @@ export const initialState = {
   playSwitch: false,
   song: {},
   loginFlag: false,
-  profile: 0,
+  profile: null,
 };
 export function reducer(state = initialState, action) {
   switch (action.type) {
