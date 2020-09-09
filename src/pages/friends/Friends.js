@@ -9,11 +9,12 @@ import day from "dayjs";
 import Color from "../../widget/Color";
 import transformJson from "../../utils/transformJson";
 import { reducerConnect } from "@/reducer/Reducer";
+import { string } from "prop-types";
 
 function Friends(props) {
   const [data, setData] = React.useState([]);
-  let [videoActiveIndex, setVideoIndex] = React.useState(-1);
-  let [videoUrl, setVideoUrl] = React.useState([]);
+  const [videoActiveIndex, setVideoIndex] = React.useState(-1);
+  const [videoUrl, setVideoUrl] = React.useState([]);
   async function getData() {
     const params = {
       pageSize: 20,
@@ -27,7 +28,6 @@ function Friends(props) {
   React.useEffect(() => {
     getData();
   }, []);
-  console.log(props.profile)
   function _renderItem(item, index) {
     return (
       <List.Item key={item.id} className="friends-itemBox">
@@ -93,3 +93,10 @@ function Friends(props) {
 }
 
 export default reducerConnect(Friends);
+
+Friends.propTypes = {
+  profile: {
+    avatarUrl: string,
+    nickname: string
+  }
+}
