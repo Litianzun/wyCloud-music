@@ -5,7 +5,7 @@
 
 *****
 
-在线查看：<http://175.24.123.231:8081>
+在线查看：<http://175.24.123.231:8081>(我一个前端搞部署真TM难，总算被我倒腾出来了~)
 
 ### 步骤（后端）
  https://binaryify.github.io/NeteaseCloudMusicApi/#/
