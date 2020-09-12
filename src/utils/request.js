@@ -1,7 +1,7 @@
 import axios from "axios";
 import { message } from "antd";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://175.24.123.231:3000";
 
 function GETRequest(url, params) {
   const promise = axios({

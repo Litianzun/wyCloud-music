@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import { initialState, reducer } from "../reducer/Reducer";
 import Welcome from "../pages/welcome/Welcome";
 import Home from "../pages/home/Home";
-import ListPage from "../pages/list/List";
 const PlayMedia = React.lazy(() => import("../components/playMedia/PlayMedia"));
 // import PlayMedia from "../components/playMedia/PlayMedia";
 import SearchList from "../pages/searchlist/SearchList";
@@ -27,7 +26,6 @@ const Router = () => {
       <Switch>
         <Route path="/" component={Welcome} exact />
         <Route path="/home" component={Home} />
-        <Route path="/list" component={ListPage} />
         <Route path="/searchlist" component={SearchList} />
         <Route path="/mv/:id" component={Mv} />
         <Route path="/album/:id" component={AlbumDetail} />

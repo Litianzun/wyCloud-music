@@ -18,6 +18,7 @@ function Friends(props) {
   async function getData() {
     const params = {
       pageSize: 20,
+      cookie: document.cookie
     };
     const res = await list.getEvent(params);
     console.log(res);
