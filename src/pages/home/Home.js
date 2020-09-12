@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Carousel, Card, Row, Col } from "antd";
 import list from "../../router/requestList";
 import "./Home.less";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
-import ToplistItem from "../../components/toplistItem/ToplistItem";
+const ToplistItem = React.lazy(() =>
+  import("../../components/toplistItem/ToplistItem")
+);
+// import ToplistItem from "../../components/toplistItem/ToplistItem";
 import { object } from "prop-types";
 
 function Home(props) {
@@ -54,10 +57,10 @@ function Home(props) {
   function handleBannerCallback(item) {
     if (item.targetType === 1) {
       props.history.push(`/song/${item.targetId}`);
-    } else if(item.targetType === 3000) {
+    } else if (item.targetType === 3000) {
       window.open(item.url);
     } else {
-      console.log(item)
+      console.log(item);
     }
   }
   return (
@@ -129,7 +132,9 @@ function Home(props) {
         <Row>
           {toplist.slice(0, 3).map((item, index) => (
             <Col span={8} key={index}>
-              <ToplistItem {...item} />
+              <Suspense fallback={<div>loading...</div>}>
+                <ToplistItem {...item} />
+              </Suspense>
             </Col>
           ))}
         </Row>

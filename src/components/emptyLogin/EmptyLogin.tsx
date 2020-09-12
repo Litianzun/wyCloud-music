@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Empty } from "antd";
 import "./EmptyLogin.less";
-import { reducerConnect } from "@/reducer/Reducer.js";
+import { reducerConnect } from "../../reducer/Reducer";
 
 interface EmptyLoginProps {
   dispatch: any;

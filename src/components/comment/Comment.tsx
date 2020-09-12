@@ -5,7 +5,6 @@ import list from "../../router/requestList";
 import Color from "../../widget/Color";
 import "./Comment.less";
 import day from "dayjs";
-import { object, string } from "prop-types";
 
 type Iinfo = {
   id: string | number;

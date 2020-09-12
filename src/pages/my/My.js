@@ -16,7 +16,7 @@ function My(props) {
   //我的歌手
   async function getMyArtists() {
     const urlPar = {
-      id: getCookie("userId"),
+      cookie: document.cookie,
     };
     const res = await list.getMyArtists(urlPar);
     console.log(res);
@@ -27,7 +27,7 @@ function My(props) {
   //我的视频
   async function getMyMv() {
     const urlPar = {
-      id: getCookie("userId"),
+      cookie: document.cookie,
     };
     const res = await list.getMyMV(urlPar);
     console.log(res);

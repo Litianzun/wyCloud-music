@@ -12,15 +12,15 @@ export default function transformJson(item, index, rests) {
   if (!item.json) {
     return null;
   } else {
-    let text = JSON.parse(item.json);
-    let msg = text.msg || "",
+    const text = JSON.parse(item.json);
+    const msg = text.msg || "",
       song = text.song,
       img = item.pics,
       video = text.video;
     //1.#xx#替换<a>标签
-    let startIndex = msg.indexOf("#");
-    let endIndex = msg.indexOf("#", startIndex + 1);
-    let targetStr = msg.substring(startIndex, endIndex + 1);
+    const startIndex = msg.indexOf("#");
+    const endIndex = msg.indexOf("#", startIndex + 1);
+    const targetStr = msg.substring(startIndex, endIndex + 1);
     return targetStr ? (
       <>
         {transformLink(msg.substring(0, startIndex))}
@@ -41,11 +41,11 @@ export default function transformJson(item, index, rests) {
 
 function transformLink(str) {
   //2.链接url统一改为【网页链接】按钮
-  let urlStartIndex =
+  const urlStartIndex =
     str.indexOf("https") === -1 ? str.indexOf("http") : str.indexOf("https");
-  let urlEndIndex =
+  const urlEndIndex =
     urlStartIndex > -1 ? str.indexOf("\n", urlStartIndex + 1) : -1;
-  let targetStr = str.substring(urlStartIndex, urlEndIndex + 1);
+  const targetStr = str.substring(urlStartIndex, urlEndIndex + 1);
   //   console.log(urlStartIndex, urlEndIndex, targetStr);
   return targetStr ? (
     <pre>
@@ -127,7 +127,7 @@ const renderOthers = (song = null, img, video, index, rests) => {
               style={{ color: "#dcdcdc", fontSize: "20px" }}
               onClick={async () => {
                 rests.setVideoIndex(index);
-                let res = await list.getVideo({ id: video.videoId });
+                const res = await list.getVideo({ id: video.videoId });
                 if (res.code === 200) {
                   rests.setVideoUrl(res.urls[0].url);
                 }
