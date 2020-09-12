@@ -2,7 +2,8 @@
 <h3>技术栈：webpack+react+antd</h3>
 
 <p>该项目原先只是webpack实操，现在一步步开始仿网易云音乐，最终完成完整的web项目</p>
-
+* * *
+在线查看：<http://175.24.123.231:8081/>
 ### 步骤（后端）
  https://binaryify.github.io/NeteaseCloudMusicApi/#/
  
