@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Row } from "antd";
+import { Link } from 'react-router-dom'
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { getSong } from "../../utils/getSong";
 import day from "dayjs";
@@ -10,8 +11,9 @@ export interface Songs {
   name: string;
   dt: Date | number;
   ar: { name: string }[];
+  id: number
 }
-function SongsTable({ songs, ...rests }: { songs: Songs[]; dispatch?: any }) {
+function SongsTable({ songs, ...rests }: { songs: Songs[]; dispatch?: any; history?: { push: any} }) {
   const columns: ColumnsType<Songs> = [
     {
       title: "",
@@ -39,6 +41,7 @@ function SongsTable({ songs, ...rests }: { songs: Songs[]; dispatch?: any }) {
     {
       title: "歌曲标题",
       dataIndex: "name",
+      render: (text, record) => (<Link to={`/song/${record.id}`}>{text}</Link>)
     },
     {
       title: "时长",

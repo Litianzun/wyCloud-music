@@ -7,7 +7,7 @@ import EmptyLogin from "@/components/emptyLogin/EmptyLogin";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import day from "dayjs";
 import Color from "../../widget/Color";
-import transformJson from "../../utils/transformJson";
+import {transformJson,transformAdvertising} from "../../utils/transformJson";
 import { reducerConnect } from "@/reducer/Reducer";
 import { string } from "prop-types";
 
@@ -30,27 +30,31 @@ function Friends(props) {
     getData();
   }, []);
   function _renderItem(item, index) {
-    return (
-      <List.Item key={item.id} className="friends-itemBox">
-        <div className="friends-itemBox-top">
-          <Avatar src={item.user.avatarUrl} />
-          <div className="friends-itemBox-info">
-            <a style={{ color: Color.blue }}>{item.user.nickname}</a>
-            <small style={{ color: "#888" }}>
-              {day(item.eventTime).format("MM月DD日 HH:mm:ss")}
-            </small>
+    if(item.type === 33) {
+      return transformAdvertising(item)
+    } else {
+      return (
+        <List.Item key={item.id} className="friends-itemBox">
+          <div className="friends-itemBox-top">
+            <Avatar src={item.user.avatarUrl} />
+            <div className="friends-itemBox-info">
+              <a style={{ color: Color.blue }}>{item.user.nickname}</a>
+              <small style={{ color: "#888" }}>
+                {day(item.eventTime).format("MM月DD日 HH:mm:ss")}
+              </small>
+            </div>
           </div>
-        </div>
-        <pre>
-          {transformJson(item, index, {
-            videoActiveIndex,
-            setVideoIndex,
-            videoUrl,
-            setVideoUrl,
-          })}
-        </pre>
-      </List.Item>
-    );
+          <pre>
+            {transformJson(item, index, {
+              videoActiveIndex,
+              setVideoIndex,
+              videoUrl,
+              setVideoUrl,
+            })}
+          </pre>
+        </List.Item>
+      );
+    }
   }
   
   return (

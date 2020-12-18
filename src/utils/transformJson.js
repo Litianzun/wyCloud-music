@@ -3,12 +3,13 @@ import { Tag } from "antd";
 import { PlayCircleFilled } from "@ant-design/icons";
 import { getSong } from "./getSong";
 import { dispatch } from "@/router/router";
+import { Link } from "react-router-dom";
 import list from "@/router/requestList";
 
 /**
  * 该函数用来转换用户动态传过来的json
  */
-export default function transformJson(item, index, rests) {
+export function transformJson(item, index, rests) {
   if (!item.json) {
     return null;
   } else {
@@ -24,9 +25,7 @@ export default function transformJson(item, index, rests) {
     return targetStr ? (
       <>
         {transformLink(msg.substring(0, startIndex))}
-        <a href={`https://music.163.com/#/activity?id=${item.actId}`}>
-          {targetStr}
-        </a>
+        <a href={`https://music.163.com/#/activity?id=${item.actId}`}>{targetStr}</a>
         {transformLink(msg.substring(endIndex + 1))}
         {renderOthers(song, img, video, index, rests)}
       </>
@@ -41,10 +40,8 @@ export default function transformJson(item, index, rests) {
 
 function transformLink(str) {
   //2.链接url统一改为【网页链接】按钮
-  const urlStartIndex =
-    str.indexOf("https") === -1 ? str.indexOf("http") : str.indexOf("https");
-  const urlEndIndex =
-    urlStartIndex > -1 ? str.indexOf("\n", urlStartIndex + 1) : -1;
+  const urlStartIndex = str.indexOf("https") === -1 ? str.indexOf("http") : str.indexOf("https");
+  const urlEndIndex = urlStartIndex > -1 ? str.indexOf("\n", urlStartIndex + 1) : -1;
   const targetStr = str.substring(urlStartIndex, urlEndIndex + 1);
   //   console.log(urlStartIndex, urlEndIndex, targetStr);
   return targetStr ? (
@@ -63,9 +60,7 @@ const renderOthers = (song = null, img, video, index, rests) => {
     <>
       {song && (
         <div style={styles.songBox}>
-          <div
-            style={{ ...styles.img, backgroundImage: `url(${song.img80x80})` }}
-          >
+          <div style={{ ...styles.img, backgroundImage: `url(${song.img80x80})` }}>
             <PlayCircleFilled
               style={{ color: "#dcdcdc", fontSize: "17px" }}
               className="playCicle"
@@ -79,8 +74,8 @@ const renderOthers = (song = null, img, video, index, rests) => {
             />
           </div>
           <div style={styles.mainInfo}>
-            <span>{song.name}</span>
-            <small>{formatArtist(song.artists)}</small>
+            <Link to={`/song/${song.id}`}>{song.name}</Link>
+            <small style={styles.mainInfo_artist}>{formatArtist(song.artists)}</small>
           </div>
         </div>
       )}
@@ -99,12 +94,7 @@ const renderOthers = (song = null, img, video, index, rests) => {
         ))}
       {video &&
         (rests.videoActiveIndex === index ? (
-          <video
-            src={rests.videoUrl}
-            style={{ width: "300px", display: "block" }}
-            autoPlay
-            controls
-          >
+          <video src={rests.videoUrl} style={{ width: "300px", display: "block" }} autoPlay controls>
             您的浏览器不支持video
           </video>
         ) : (
@@ -140,9 +130,25 @@ const renderOthers = (song = null, img, video, index, rests) => {
   );
 };
 
+export const transformAdvertising = (item) => {
+  if (!item.json) {
+    return null;
+  } else {
+    const text = JSON.parse(item.json);
+    return (
+      <>
+        <div style={{ backgroundImage: `url(${text.coverPCUrl})`, ...styles.advertisingBox}} key={item.id}>
+          <h3 style={{ fontSize: 20, wordBreak: "break-all", color: '#fff' }}>#{text.title}#</h3>
+          <small style={{marginTop: 22, color: '#fff'}}>{text.participateCount}人参与</small>
+        </div>
+      </>
+    );
+  }
+};
+
 const styles = {
   songBox: {
-    width: "100%",
+    width: "666px",
     height: "60px",
     backgroundColor: "#eee",
     display: "flex",
@@ -150,6 +156,7 @@ const styles = {
     paddingLeft: "8px",
     paddingRight: "8px",
     marginTop: "6px",
+    borderRadius: 8,
   },
   img: {
     width: "42px",
@@ -168,6 +175,26 @@ const styles = {
     height: "42px",
     justifyContent: "space-between",
     marginLeft: "10px",
+  },
+  mainInfo_artist: {
+    color: "#888",
+    fontSize: 12,
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    width: "598px",
+    overflow: "hidden",
+  },
+  advertisingBox: {
+    width: 860,
+    height: 355,
+    marginTop: 12,
+    marginBottom: 12,
+    backgroundPosition: "centre",
+    backgroundSize: "cover",
+    display: "flex",
+    flexDirection: 'column',
+    justifyContent: "center",
+    alignItems: "center",
   },
 };
 

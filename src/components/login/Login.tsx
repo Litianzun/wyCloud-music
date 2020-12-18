@@ -35,6 +35,8 @@ const Login: FC<LoginProps> = (props) => {
     console.log(res);
     if (res.code == 200) {
       cacheLoginInfo(res);
+    } else {
+      message.error(res.msg)
     }
   }
   async function loginForEmail() {
@@ -46,6 +48,8 @@ const Login: FC<LoginProps> = (props) => {
     console.log(res);
     if (res.code == 200) {
       cacheLoginInfo(res);
+    } else {
+      message.error(res.msg)
     }
   }
 
