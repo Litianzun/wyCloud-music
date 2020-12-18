@@ -37,7 +37,7 @@ function Playlist(props) {
     <div style={{ backgroundColor: "#eee" }}>
       <div className="mvWrapper">
         <section className="mv-left" style={{ padding: "20px" }}>
-          <PlaylistMain {...playlistDetail} />
+          <PlaylistMain {...playlistDetail} {...props} />
         </section>
         <section className="mv-right">
           <div className="relevant">

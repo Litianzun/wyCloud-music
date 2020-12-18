@@ -20,6 +20,7 @@ interface playlistMainProps {
   dispatch: any;
   id: string | number;
   commentCount: number;
+  history: any
 }
 const PlaylistMain = (props: playlistMainProps) => {
   return (
@@ -49,7 +50,7 @@ const PlaylistMain = (props: playlistMainProps) => {
           />
         </div>
       </div>
-      <SongsTable songs={props.tracks || []} dispatch={props.dispatch} />
+      <SongsTable songs={props.tracks || []} dispatch={props.dispatch} history={props.history} />
       <Comment type="playlist" info={props} />
     </>
   );
